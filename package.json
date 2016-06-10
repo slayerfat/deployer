@@ -4,7 +4,10 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "start": "ng server",
+    "watch": "npm run gulp:watch & npm run gulp:server & npm run build:watch",
+      "build:watch": "ng build --watch",
+      "gulp:watch": "gulp ts:watch",
+      "gulp:server": "gulp server",
     "postinstall": "typings install",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
@@ -33,7 +36,6 @@
   },
   "devDependencies": {
     "angular-cli": "^1.0.0-beta.5",
-    "babel-register": "^6.9.0",
     "codelyzer": "0.0.19",
     "ember-cli-inject-live-reload": "^1.4.0",
     "gulp-tslint": "^5.0.0",
