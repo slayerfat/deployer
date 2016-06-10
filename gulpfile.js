@@ -42,6 +42,6 @@ gulp.task('server', function () {
   server.run(['dist/server/server.js']);
 
   // Restart the server when file changes
-  gulp.watch(['dist/server/**/*.js'], server.notify);
+  gulp.watch(['dist/server/**/*.{js, css, scss}'], server.notify);
   gulp.watch(['dist/server/server.js'], [server.run]);
 });
