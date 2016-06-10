@@ -30,7 +30,11 @@ gulp.task('ts:lint', function () {
     .pipe(tsLint.report('verbose'));
 });
 
-gulp.task('build', ['ts:lint', 'ts:compile']);
+gulp.task('ts:build', ['ts:lint', 'ts:compile']);
+
+gulp.task('ts:watch', ['ts:build'], function() {
+  gulp.watch('server/**/*.ts', ['ts:build']);
+});
 
 gulp.task('server', function () {
   // Start the server at the beginning of the task
