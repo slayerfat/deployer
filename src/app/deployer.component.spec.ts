@@ -14,9 +14,4 @@ describe('App: Deployer', () => {
       inject([DeployerAppComponent], (app: DeployerAppComponent) => {
     expect(app).toBeTruthy();
   }));
-
-  it('should have as title \'deployer works!\'',
-      inject([DeployerAppComponent], (app: DeployerAppComponent) => {
-    expect(app.title).toEqual('deployer works!');
-  }));
 });
