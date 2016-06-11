@@ -13,7 +13,9 @@ export class Validator {
    * @returns {{email: boolean}}
    */
   public static email(control: Control): { [s: string]: boolean } {
-    if (!control.value.match(/^123/)) {
+    /* tslint:disable:max-line-length */
+    let regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    if (!control.value.match(regex)) {
       return {email: true};
     }
   }
