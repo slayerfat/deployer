@@ -10,7 +10,7 @@ import { AppRoute } from '../services/misc/AppRoute';
   templateUrl: 'navbar.component.html',
   styleUrls: ['navbar.component.css'],
   directives: [ROUTER_DIRECTIVES],
-  providers: [AppStringsService, AppRoutesService]
+  providers: [AppRoutesService]
 })
 export class NavbarComponent implements OnInit {
 
