@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AppStringsService {
   public brand = 'Deployer';
-  public shortDesc= 'Deployer, it just works!';
+  public shortDesc = 'Deployer, it just works!';
   public repoUrl = 'https://github.com/slayerfat/deployer';
   public authors = [
     {
@@ -15,6 +15,15 @@ export class AppStringsService {
       website: 'http://slayerfat.com.ve/'
     }
   ];
+
+  validation =  {
+    required: {
+      message: 'The input is required.'
+    },
+    email: {
+      message: 'Email is incorrect.'
+    }
+  };
 
   constructor() {
   }

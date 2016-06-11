@@ -1,0 +1,11 @@
+<div [class.hidden]="control.valid || control.pristine"
+     class="help-block alert alert-danger">
+  <strong>Oops!</strong>
+  some errors have been found:
+  <ul>
+    <li *ngFor="let element of errorElements"
+        [class.hidden]="!control.hasError(element.name)">
+      {{ element.message }}
+    </li>
+  </ul>
+</div>
