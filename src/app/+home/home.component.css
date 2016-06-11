@@ -1,0 +1,31 @@
+.moira {
+  font-size: 4rem;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
+  /*background-color: ivory;*/
+  padding-top: 2em;
+  padding-bottom: 2em;
+  border-radius: 2em;
+}
+
+.moira .image {
+  min-width: 50%;
+}
+
+.moira .text-container {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
+.moira .action {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  font-style: italic;
+}
+
+.moira .actor {
+  font-size: 4.5rem;
+  font-style: italic;
+  font-weight: bold;
+}
