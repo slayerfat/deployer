@@ -4,7 +4,8 @@ const tscConfig = require('./tsconfig.json');
 const sourceMaps = require('gulp-sourcemaps');
 const tsLint = require('gulp-tslint');
 const tsconfig = require('tsconfig-glob');
-const server = require('gulp-express');
+const browserSync = require('browser-sync');
+var server = require('gulp-express');
 
 // http://blog.scottlogic.com/2015/12/24/creating-an-angular-2-build.html
 gulp.task('ts:compile', function () {
@@ -42,6 +43,14 @@ gulp.task('server', function () {
   server.run(['dist/server/server.js']);
 
   // Restart the server when file changes
-  gulp.watch(['dist/server/**/*.{js, css, scss}'], server.notify);
   gulp.watch(['dist/server/server.js'], [server.run]);
+});
+
+gulp.task('browser-sync', ['server'], function() {
+  browserSync.init(null, {
+    proxy: "http://localhost:3300",
+    open: false
+  });
+
+  gulp.watch(['dist/**/*.{html,htm,css,js}']).on('change', browserSync.reload);
 });

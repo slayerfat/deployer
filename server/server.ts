@@ -13,6 +13,6 @@ app.get('/*', function (req: Request, res: Response) {
   res.sendFile(indexFile);
 });
 
-app.listen(3000, function () {
-  console.log('Serving http://localhost:3000!');
+app.listen(3300, function () {
+  console.log('Serving http://localhost:3300!');
 });
