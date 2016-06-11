@@ -19,7 +19,7 @@ export class AppRoutesService {
       title: this.appStrings.brand,
       name: this.appStrings.brand,
       path: '/',
-      shortDesc: 'Deployer, it just works!'
+      shortDesc: this.appStrings.shortDesc
     };
     this.routes.push(home);
   }
