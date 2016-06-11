@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
 import { AppStringsService } from './services/strings/app-strings.service';
 import { AuthUserService } from './services/user/auth-user.service';
+import { NavbarComponent } from './navbar/navbar.component';
+import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './+login';
 import { DashboardComponent } from './+dashboard';
-import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './+home';
 
 @Component({
@@ -12,7 +13,7 @@ import { HomeComponent } from './+home';
   selector: 'deployer-app',
   templateUrl: 'deployer.component.html',
   styleUrls: ['deployer.component.css'],
-  directives: [ROUTER_DIRECTIVES, NavbarComponent],
+  directives: [ROUTER_DIRECTIVES, NavbarComponent, FooterComponent],
   providers: [ROUTER_PROVIDERS, AuthUserService, AppStringsService]
 })
 @Routes([

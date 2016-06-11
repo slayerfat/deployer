@@ -1,0 +1,24 @@
+<footer class="footer-center">
+  <p class="footer-centered-text footer-jumbo">
+    {{ appStrings.brand }}
+  </p>
+
+  <p class="footer-centered-text footer-authors"
+     *ngFor="let author of appStrings.authors">
+    <i class="fa fa-twitter"></i>
+    <a [href]="author.twitter">@{{ author.name }}</a>
+  </p>
+
+  <p class="footer-centered-text footer-authors"
+     *ngFor="let author of appStrings.authors">
+    <i class="fa fa-github"></i>
+    <a [href]="author.github">{{ author.name }}</a>
+    © {{ year }}
+  </p>
+
+  <p class="text-center">
+    <a [href]="appStrings.repoUrl">
+      <i class="fa fa-2x fa-github"></i>
+    </a>
+  </p>
+</footer>
