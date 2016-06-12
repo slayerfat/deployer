@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
-import { ControlInterface } from "../shared/interfaces/ControlInterface";
-import { UserModelInterface } from "./UserModelInterface";
-import appendDates from "../shared/appendDates";
+import { ControlInterface } from '../shared/interfaces/ControlInterface';
+import { UserModelInterface } from './UserModelInterface';
+import appendDates from '../shared/appendDates';
 
 let userSchema: mongoose.Schema = new mongoose.Schema({
   id: {
