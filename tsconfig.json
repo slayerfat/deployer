@@ -11,12 +11,12 @@
     "noEmitHelpers": true
   },
   "files": [
-    "server/server.ts",
+    "backend/server.ts",
     "config/config.ts",
     "typings/main.d.ts"
   ],
   "filesGlob": [
-    "server/**/*.ts",
+    "backend/**/*.ts",
     "config/config.ts",
     "typings/main.d.ts"
   ],

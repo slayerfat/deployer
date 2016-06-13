@@ -28,23 +28,23 @@ gulp.task('ts:compile', function () {
 });
 
 gulp.task('ts:compile:watch', ['ts:compile'], function () {
-  gulp.watch('server/**/*.ts', ['ts:compile']);
+  gulp.watch('backend/**/*.ts', ['ts:compile']);
 });
 
 gulp.task('ts:lint', function () {
-  return gulp.src(['server/**/*.ts', 'src/**/*.ts'])
+  return gulp.src(['backend/**/*.ts', 'src/**/*.ts'])
     .pipe(tsLint())
     .pipe(tsLint.report('verbose'));
 });
 
 gulp.task('ts:lint:watch', ['ts:compile'], function () {
-  gulp.watch(['server/**/*.ts', 'src/**/*.ts'], ['ts:compile']);
+  gulp.watch(['backend/**/*.ts', 'src/**/*.ts'], ['ts:compile']);
 });
 
 gulp.task('server', function () {
   // Start the server at the beginning of the task
   // args[,options][,live-reload]
-  server.run(['dist/server/server.js']);
+  server.run(['dist/backend/server.js']);
 });
 
 gulp.task('browser-sync', ['server'], function () {
