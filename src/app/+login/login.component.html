@@ -9,16 +9,15 @@
                 [ngFormModel]="form"
                 (ngSubmit)="onSubmit(form.value)">
             <div class="form-group">
-              <label class="col-md-4 control-label">Email</label>
+              <label class="col-md-4 control-label">Username</label>
               <div class="col-md-6">
-                <input type="email"
-                       class="form-control"
+                <input class="form-control"
                        required
-                       [ngFormControl]="form.controls['email']"
-                       title="email">
+                       [ngFormControl]="form.controls['name']"
+                       title="name">
                 <app-form-error
-                  [control]="emailControl"
-                  [errorElements]="emailErrorElements"></app-form-error>
+                  [control]="nameControl"
+                  [errorElements]="nameErrorElements"></app-form-error>
               </div>
             </div>
 

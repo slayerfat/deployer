@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthUserService } from '../services/user/auth-user.service';
-import { AppStringsService } from '../services/strings/app-strings.service';
 import { ControlGroup, FormBuilder, Validators, AbstractControl } from '@angular/common';
-import { Validator } from '../shared/validator/validator';
-import { FormErrorComponent } from '../shared/form-error/form-error.component';
-import { FormElement } from '../shared/form-error/FormElement';
+import { AppStringsService } from '../services/strings/app-strings.service';
+import { UserAuthService, FormErrorComponent, FormElement } from '../shared/';
 
 @Component({
   moduleId: module.id,
@@ -18,12 +15,12 @@ export class LoginComponent implements OnInit {
 
   heading: string;
   form: ControlGroup;
-  emailControl: AbstractControl;
+  nameControl: AbstractControl;
   pwControl: AbstractControl;
-  emailErrorElements: FormElement[] = [];
+  nameErrorElements: FormElement[] = [];
   pwErrorElements: FormElement[] = [];
 
-  constructor(private authUserService: AuthUserService,
+  constructor(private userAuthService: UserAuthService,
               private appStrings: AppStringsService,
               private router: Router,
               private fb: FormBuilder,
@@ -32,19 +29,17 @@ export class LoginComponent implements OnInit {
     this.heading = `Login to ${brand}!`;
 
     this.form = fb.group({
-      'email': ['', Validators.compose([
-        Validators.required,
-        Validator.email
+      'name': ['', Validators.compose([
+        Validators.required
       ])],
       'password': ['', Validators.required]
     });
 
-    this.emailControl = this.form.controls['email'];
+    this.nameControl = this.form.controls['name'];
     this.pwControl = this.form.controls['password'];
 
-    this.emailErrorElements = [
-      {name: 'required', message: this.strings.validation.required.message},
-      {name: 'email', message: this.strings.validation.email.message}
+    this.nameErrorElements = [
+      {name: 'required', message: this.strings.validation.required.message}
     ];
 
     this.pwErrorElements = [
@@ -53,7 +48,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(data: any) {
-    return console.log(data);
+    this.userAuthService.login(data.name, data.password).subscribe(result => {
+      if (result) {
+        this.router.navigate(['/dashboard']);
+      }
+    });
   }
 
   ngOnInit() {

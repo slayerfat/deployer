@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
 import { AppStringsService } from './services/strings/app-strings.service';
-import { AuthUserService } from './services/user/auth-user.service';
-import { NavbarComponent } from './navbar/navbar.component';
-import { FooterComponent } from './footer/footer.component';
+import { UserAuthService } from './shared';
+import { NavbarComponent } from './navbar';
+import { FooterComponent } from './footer';
 import { LoginComponent } from './+login';
 import { DashboardComponent } from './+dashboard';
 import { HomeComponent } from './+home';
@@ -14,7 +14,7 @@ import { HomeComponent } from './+home';
   templateUrl: 'deployer.component.html',
   styleUrls: ['deployer.component.css'],
   directives: [ROUTER_DIRECTIVES, NavbarComponent, FooterComponent],
-  providers: [ROUTER_PROVIDERS, AuthUserService, AppStringsService]
+  providers: [ROUTER_PROVIDERS, UserAuthService, AppStringsService]
 })
 @Routes([
   {path: '/', component: HomeComponent},
