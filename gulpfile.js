@@ -4,10 +4,20 @@ var tscConfig = require('./tsconfig.json');
 var sourceMaps = require('gulp-sourcemaps');
 var tsLint = require('gulp-tslint');
 var tsconfig = require('tsconfig-glob');
-var browserSync = require('browser-sync');
 var server = require('gulp-express');
 var runSequence = require('run-sequence');
 var proxy = require('http-proxy-middleware');
+
+const paths = {
+  backend: {
+    entry: ['dist/backend/server.js'],
+    files: ['dist/**/*.{html,htm,css,js}'],
+    watchList: 'backend/**/*.ts'
+  },
+  frontend: {
+    watchList: 'src/**/*.ts'
+  }
+};
 
 // update the tsconfig files based on the glob pattern
 gulp.task('tsconfig-glob', function () {
@@ -28,42 +38,34 @@ gulp.task('ts:compile', function () {
 });
 
 gulp.task('ts:compile:watch', ['ts:compile'], function () {
-  gulp.watch('backend/**/*.ts', ['ts:compile']);
+  gulp.watch(paths.backend.watchList, ['ts:compile']);
 });
 
 gulp.task('ts:lint', function () {
-  return gulp.src(['backend/**/*.ts', 'src/**/*.ts'])
+  return gulp.src([paths.backend.watchList, paths.frontend.watchList])
     .pipe(tsLint())
     .pipe(tsLint.report('verbose'));
 });
 
 gulp.task('ts:lint:watch', ['ts:compile'], function () {
-  gulp.watch(['backend/**/*.ts', 'src/**/*.ts'], ['ts:compile']);
+  gulp.watch([paths.backend.watchList, paths.frontend.watchList], ['ts:compile']);
 });
 
 gulp.task('server', function () {
   // Start the server at the beginning of the task
   // args[,options][,live-reload]
-  server.run(['dist/backend/server.js']);
-});
+  server.run(paths.backend.entry);
 
-gulp.task('browser-sync', ['server'], function () {
-  var proxyMiddleware = proxy('**', {
-    target: 'http://localhost:3300'
-  });
-  browserSync.init(null, {
-    open: false,
-    middleware: [proxyMiddleware]
-  });
-
-  gulp.watch(['dist/**/*.{html,htm,css,js}']).on('change', browserSync.reload);
+  // Restart the server when file changes
+  gulp.watch(paths.backend.files, server.notify);
+  gulp.watch(paths.backend.entry, [server.run]);
 });
 
 gulp.task('default', function () {
   runSequence(
     'ts:lint:watch',
     'ts:compile:watch',
-    'browser-sync'
+    'server'
   );
 });
 

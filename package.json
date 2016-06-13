@@ -45,7 +45,6 @@
   },
   "devDependencies": {
     "angular-cli": "^1.0.0-beta.5",
-    "browser-sync": "^2.13.0",
     "codelyzer": "0.0.19",
     "ember-cli-inject-live-reload": "^1.4.0",
     "gulp-tslint": "^5.0.0",
