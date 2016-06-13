@@ -1,16 +1,17 @@
 import * as mongoose from 'mongoose';
-import { ControlInterface } from '../shared/interfaces/ControlInterface';
 import { UserModelInterface } from './UserModelInterface';
 import appendDates from '../shared/appendDates';
 
 let userSchema: mongoose.Schema = new mongoose.Schema({
-  id: {
+  name: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   password: {
     type: String,
@@ -18,11 +19,11 @@ let userSchema: mongoose.Schema = new mongoose.Schema({
   },
   remember_token: String,
   control: {
-    type: ControlInterface,
+    type: Object, // TODO: check if can be ControlInterface
     required: true
   }
 });
 
 userSchema.pre('save', appendDates);
 
-export let User = mongoose.model<UserModelInterface>('User', userSchema);
+export default mongoose.model<UserModelInterface>('User', userSchema);
