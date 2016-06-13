@@ -12,10 +12,12 @@
   },
   "files": [
     "server/server.ts",
+    "config/config.ts",
     "typings/main.d.ts"
   ],
   "filesGlob": [
     "server/**/*.ts",
+    "config/config.ts",
     "typings/main.d.ts"
   ],
   "compileOnSave": false,
