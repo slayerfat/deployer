@@ -5,6 +5,7 @@ export default {
     backend: 4000
   },
   secret: 'someRandomString',
+  jwtSecret: 'anotherRandomString',
   mongo: {
     development: 'mongodb://localhost:27017/deployer-dev',
     production: 'mongodb://localhost:27017/deployer-prod',
