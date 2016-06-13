@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import User from '../../models/users/User';
 import * as jwt from 'jsonwebtoken';
+import { Comprobable } from '../../../src/app/shared/interfaces';
 
 export default function loginRoute(app) {
   app.post('/api/login', function (req: Request, res: Response) {
@@ -14,19 +15,21 @@ export default function loginRoute(app) {
       if (!user) {
         return res.json(message);
       } else if (user) {
-        console.log('user found');
         // check if password matches
         if (user.password != req.body.password) {
           res.json(message);
         } else {
-          // if user is found and password is right
-          // create a token
+          // creates the jwt toke with a 6 hours duration
+          // since jwt typing states sign returns void, we have
+          // to assert the return as any (string doesn't work)
           let token = jwt.sign(user, app.get('jwtSecret'), {
             expiresIn: '6h'
-          });
+          }) as any;
 
-          // return the information including token as JSON
-          res.json({success: true, token: token});
+          let response: Comprobable = {success: true, token: token};
+
+          // returns the token with a success message
+          res.json(response);
         }
       }
     });
