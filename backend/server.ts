@@ -1,7 +1,7 @@
 import express = require('express');
 import * as bodyParser from 'body-parser';
 import * as morgan from 'morgan';
-import config from '../config/config';
+import { config } from '../config/config';
 import * as mongoose from 'mongoose';
 import db from './database';
 import loginRoute from './routes/auth/login.route';

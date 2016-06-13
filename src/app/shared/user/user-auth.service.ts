@@ -3,6 +3,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { LoginResponse } from '../interfaces/server/LoginResponse';
 import 'rxjs/add/operator/map';
+import { environment } from '../../environment';
 
 @Injectable()
 export class UserAuthService {
@@ -17,7 +18,7 @@ export class UserAuthService {
     headers.append('Content-Type', 'application/json');
 
     return this.http.post(
-      '/api/login',
+      environment.endpoints.login,
       JSON.stringify({name, password}),
       {headers}
     ).map((res: LoginResponse) => res.json())

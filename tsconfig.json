@@ -23,7 +23,7 @@
     "backend/routes/frontend.ts",
     "backend/server.ts",
     "config/config.ts",
-    "config/example.environment.ts"
+    "config/example.config.ts"
   ],
   "filesGlob": [
     "backend/**/*.ts",
