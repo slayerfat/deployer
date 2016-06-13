@@ -28,9 +28,9 @@ gulp.task('tsconfig-glob', function () {
 });
 
 // http://blog.scottlogic.com/2015/12/24/creating-an-angular-2-build.html
-gulp.task('ts:compile', function () {
+gulp.task('ts:compile', ['tsconfig-glob'], function () {
   return gulp
-    .src(tscConfig.filesGlob)
+    .src(tscConfig.files)
     .pipe(sourceMaps.init())
     .pipe(typescript(tscConfig.compilerOptions))
     .pipe(sourceMaps.write('.'))
@@ -47,8 +47,8 @@ gulp.task('ts:lint', function () {
     .pipe(tsLint.report('verbose'));
 });
 
-gulp.task('ts:lint:watch', ['ts:compile'], function () {
-  gulp.watch([paths.backend.watchList, paths.frontend.watchList], ['ts:compile']);
+gulp.task('ts:lint:watch', ['ts:lint'], function () {
+  gulp.watch([paths.backend.watchList, paths.frontend.watchList], ['ts:lint']);
 });
 
 gulp.task('server', function () {

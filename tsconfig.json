@@ -11,13 +11,24 @@
     "noEmitHelpers": true
   },
   "files": [
+    "typings/main.d.ts",
+    "backend/database.ts",
+    "backend/models/shared/appendDates.ts",
+    "backend/models/shared/interfaces/ControlInterface.ts",
+    "backend/models/shared/interfaces/DatesInterface.ts",
+    "backend/models/shared/interfaces/UserControlInterface.ts",
+    "backend/models/users/User.ts",
+    "backend/models/users/UserModelInterface.ts",
+    "backend/routes/auth/login.route.ts",
+    "backend/routes/frontend.ts",
     "backend/server.ts",
     "config/config.ts",
-    "typings/main.d.ts"
+    "config/example.environment.ts"
   ],
   "filesGlob": [
     "backend/**/*.ts",
     "config/config.ts",
+    "config/example.config.ts",
     "typings/main.d.ts"
   ],
   "compileOnSave": false,
