@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
-import { AppStringsService } from './shared/services/app-strings.service';
-import { UserAuthService } from './shared';
+import { UserAuthService, AppStringsService } from './shared';
 import { NavbarComponent } from './navbar';
 import { FooterComponent } from './footer';
 import { LoginComponent } from './+login';

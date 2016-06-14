@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ControlGroup, FormBuilder, Validators, AbstractControl } from '@angular/common';
-import { AppStringsService } from '../shared/services/app-strings.service';
-import { UserAuthService, FormErrorComponent, FormElement } from '../shared/';
+import { UserAuthService, FormErrorComponent, FormElement, AppStringsService } from '../shared/';
 
 @Component({
   moduleId: module.id,
