@@ -1,4 +1,5 @@
-import express = require('express');
+import * as express from 'express';
+import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import * as morgan from 'morgan';
 import { config } from '../config/config';
@@ -13,10 +14,17 @@ const port = config.env == 'development' ?
 
 let app = express();
 
+// cross origin requests
+app.use(cors({origin: config.url}));
+
+// parsers
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
+// jwt secret (stored in app)
 app.set('jwtSecret', config.jwtSecret);
 
+// database initiation
 db(mongoose);
 
 if (config.env == 'development') {
@@ -25,6 +33,7 @@ if (config.env == 'development') {
   app.use(morgan('dev'));
 }
 
+// backend routes
 if (config.env == 'production') {
   frontEndRoutes(app);
 }

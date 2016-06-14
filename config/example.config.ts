@@ -1,7 +1,8 @@
-const url = 'http://localhost/api/';
+const url = 'http://localhost';
 
 export default {
   env: 'production',
+  url: url,
   ports: {
     frontend: 3000,
     backend: 4000
@@ -14,6 +15,6 @@ export default {
     test: 'mongodb://localhost:27017/deployer-test'
   },
   endpoints: {
-    login: url + 'login'
+    login: url + '/api/login'
   }
 };

@@ -15,6 +15,7 @@
     "serve-static": "registry:dt/serve-static#0.0.0+20160606155157"
   },
   "dependencies": {
+    "cors": "registry:npm/cors#2.7.0+20160505024722",
     "jsonwebtoken": "registry:npm/jsonwebtoken#5.5.4+20160208220328",
     "mongoose": "registry:npm/mongoose#4.3.5+20160610145311"
   }
