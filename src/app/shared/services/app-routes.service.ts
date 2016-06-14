@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppRoute } from './AppRoute';
-import { AppStringsService } from '../strings/app-strings.service';
+import { AppStringsService } from './app-strings.service';
 
 @Injectable()
 export class AppRoutesService {

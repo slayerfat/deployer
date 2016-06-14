@@ -34,7 +34,7 @@ const barrels: string[] = [
   'app/navbar',
   'app/+home',
   'app/footer',
-  'app/shared/form-error',
+  'app/shared/components/form-error',
   /** @cli-barrel */
 ];
 

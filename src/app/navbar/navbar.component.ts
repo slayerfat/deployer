@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
-import { AppStringsService } from '../services/strings/app-strings.service';
-import { AppRoutesService } from '../services/misc/app-routes.service';
-import { AppRoute } from '../services/misc/AppRoute';
+import { AppStringsService } from '../shared/services/app-strings.service';
+import { AppRoutesService } from '../shared/services/app-routes.service';
+import { AppRoute } from '../shared/services/AppRoute';
 
 @Component({
   moduleId: module.id,
