@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose';
 import { UserModelInterface } from './UserModelInterface';
 import appendDates from '../shared/appendDates';
+import appendControl from '../shared/appendUsers';
 
 let userSchema: mongoose.Schema = new mongoose.Schema({
   name: {
@@ -18,12 +19,23 @@ let userSchema: mongoose.Schema = new mongoose.Schema({
     required: true
   },
   remember_token: String,
-  control: {
-    type: Object, // TODO: check if can be ControlInterface
-    required: true
+  createdAt: {
+    type: Date
+  },
+  updatedAt: {
+    type: Date
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  updatedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 });
 
 userSchema.pre('save', appendDates);
+userSchema.pre('save', appendControl);
 
 export default mongoose.model<UserModelInterface>('User', userSchema);

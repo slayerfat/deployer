@@ -1,14 +1,12 @@
 export default function appendDates(next) {
-  // get the current date
-  var currentDate = new Date();
+  const currentDate = new Date();
 
-  // if created_at doesn't exist, add to that field
-  if (!this.control.dates.created_at) {
-    this.control.dates.created_at = currentDate;
+  // if createdAt doesn't exist, add to that field
+  if (!this.createdAt) {
+    this.createdAt = currentDate;
   }
 
-  // change the updated_at field to current date
-  this.control.dates.updated_at = currentDate;
+  this.updatedAt = currentDate;
 
   next();
 }

@@ -1,4 +1,6 @@
+import * as mongoose from 'mongoose';
+
 export interface UserControlInterface {
-  created_by: string;
-  updated_by: string;
+  createdBy: string | number | mongoose.Types.ObjectId;
+  updatedBy: string | number | mongoose.Types.ObjectId;
 }

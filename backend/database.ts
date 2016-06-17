@@ -1,13 +1,16 @@
 import { config } from '../config/config';
 
 export default (mongoose) => {
-  let url;
+  let url: string;
 
   if (config.env == 'development') {
     url = config.mongo.development;
   } else {
     url = config.mongo.production;
   }
+
+  // Set to any Promise implementation
+  mongoose.Promise = Promise;
 
   mongoose.connect(url, (error) => {
     if (error) {
@@ -29,7 +32,7 @@ export default (mongoose) => {
     console.log(`Disconnected from ${config.env} database.`);
   });
 
-  let exit = function() {
+  let exit = function () {
     mongoose.connection.close(() => {
       console.log(`Database ${config.env} disconnected thanks to node.`);
 
