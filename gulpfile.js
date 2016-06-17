@@ -4,7 +4,7 @@ var tscConfig = require('./tsconfig.json');
 var sourceMaps = require('gulp-sourcemaps');
 var tsLint = require('gulp-tslint');
 var tsconfig = require('tsconfig-glob');
-var server = require('gulp-express');
+var gls = require('gulp-live-server');
 var runSequence = require('run-sequence');
 var proxy = require('http-proxy-middleware');
 
@@ -52,13 +52,19 @@ gulp.task('ts:lint:watch', ['ts:lint'], function () {
 });
 
 gulp.task('server', function () {
-  // Start the server at the beginning of the task
-  // args[,options][,live-reload]
-  server.run(paths.backend.entry);
+  // run script as a server
+  var server = gls.new(paths.backend.entry);
+  server.start();
 
-  // Restart the server when file changes
-  gulp.watch(paths.backend.files, server.notify);
-  gulp.watch(paths.backend.entry, [server.run]);
+  // use gulp.watch to trigger server actions(notify, start or stop)
+  gulp.watch(paths.backend.files, function (file) {
+    server.notify.apply(server, [file]);
+  });
+
+  // restart if server.js changes
+  gulp.watch(paths.backend.entry, function () {
+    server.start.bind(server)()
+  });
 });
 
 gulp.task('default', function () {
