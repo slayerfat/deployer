@@ -9,7 +9,11 @@ var runSequence = require('run-sequence');
 var proxy = require('http-proxy-middleware');
 
 // tasks
-require('./dist/config/gulp/seeds')(gulp);
+try {
+  require('./dist/config/gulp/seeds')(gulp);
+} catch (e) {
+  console.log(e.message);
+}
 
 const paths = {
   backend: {
