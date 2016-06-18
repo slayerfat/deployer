@@ -30,24 +30,4 @@ export default function loginRoute(app) {
       return Promise.resolve(res.status(400).json(message));
     });
   });
-
-  app.get('/api/seed', function (req: Request, res: Response) {
-    // create a sample user
-    let user: UserModelInterface = new User({
-      name: 'asd',
-      password: 'asd',
-      email: 'a@a'
-    });
-
-    // save the sample user
-    user.save().then(() => {
-      console.log('User saved successfully.');
-
-      res.json({success: true});
-    }, err => {
-      console.log(err);
-
-      res.status(400).json({success: false, err: err});
-    });
-  });
 }

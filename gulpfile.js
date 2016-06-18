@@ -8,6 +8,9 @@ var gls = require('gulp-live-server');
 var runSequence = require('run-sequence');
 var proxy = require('http-proxy-middleware');
 
+// tasks
+require('./dist/config/gulp/seeds')(gulp);
+
 const paths = {
   backend: {
     entry: ['dist/backend/server.js'],

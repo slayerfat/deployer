@@ -2,6 +2,11 @@ const url = 'http://localhost';
 
 export default {
   env: 'production',
+  user: {
+    name: '',
+    password: '',
+    email: ''
+  },
   url: url,
   ports: {
     frontend: 3000,

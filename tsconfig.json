@@ -13,6 +13,7 @@
   "files": [
     "typings/main.d.ts",
     "backend/database.ts",
+    "backend/models/seeds/user.seeds.ts",
     "backend/models/shared/appendDates.ts",
     "backend/models/shared/appendUsers.ts",
     "backend/models/shared/interfaces/ControlInterface.ts",
@@ -24,11 +25,13 @@
     "backend/routes/frontend.ts",
     "backend/server.ts",
     "config/config.ts",
+    "config/gulp/seeds.ts",
     "config/example.config.ts"
   ],
   "filesGlob": [
     "backend/**/*.ts",
     "config/config.ts",
+    "config/gulp/**/*.ts",
     "config/example.config.ts",
     "typings/main.d.ts"
   ],
