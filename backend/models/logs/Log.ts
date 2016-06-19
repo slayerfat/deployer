@@ -15,13 +15,13 @@ let logSchema: mongoose.Schema = new mongoose.Schema({
     max: 32
   },
   headers: {
-    type: String,
+    type: Object,
     required: true,
     trim: true,
     max: 1000
   },
   status: {
-    type: String,
+    type: Object,
     required: true,
     trim: true,
     max: 100
