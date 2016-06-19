@@ -5,6 +5,7 @@ export default function appendUsers(next) {
   User.findOne().exec().then(model => {
     // we need to check if the model is not null (first user)
     const id = model ? model._id : 0;
+    console.log(`appending control user with id ${id}`);
 
     if (!this.createdBy) {
       this.createdBy = id;
