@@ -3,6 +3,8 @@ import { TargetModelInterface } from './TargetModelInterface';
 import appendDates from '../shared/appendDates';
 import appendControl from '../shared/appendUsers';
 
+let mongooseSlugs = require('mongoose-url-slugs');
+
 let targetSchema: mongoose.Schema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -41,5 +43,6 @@ let targetSchema: mongoose.Schema = new mongoose.Schema({
 
 targetSchema.pre('save', appendDates);
 targetSchema.pre('save', appendControl);
+targetSchema.plugin(mongooseSlugs('name'));
 
 export default mongoose.model<TargetModelInterface>('Target', targetSchema);

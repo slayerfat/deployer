@@ -20,6 +20,7 @@
     "backend/models/shared/appendUsers.ts",
     "backend/models/shared/interfaces/ControlInterface.ts",
     "backend/models/shared/interfaces/DatesInterface.ts",
+    "backend/models/shared/interfaces/Sluggable.ts",
     "backend/models/shared/interfaces/UserControlInterface.ts",
     "backend/models/targets/Target.ts",
     "backend/models/targets/TargetModelInterface.ts",

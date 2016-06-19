@@ -3,6 +3,8 @@ import { UserModelInterface } from './UserModelInterface';
 import appendDates from '../shared/appendDates';
 import appendControl from '../shared/appendUsers';
 
+let mongooseSlugs = require('mongoose-url-slugs');
+
 let userSchema: mongoose.Schema = new mongoose.Schema({
   name: {
     type: String,
@@ -41,5 +43,6 @@ let userSchema: mongoose.Schema = new mongoose.Schema({
 
 userSchema.pre('save', appendDates);
 userSchema.pre('save', appendControl);
+userSchema.plugin(mongooseSlugs('name'));
 
 export default mongoose.model<UserModelInterface>('User', userSchema);

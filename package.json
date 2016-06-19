@@ -38,6 +38,7 @@
     "gulp-typescript": "^2.13.6",
     "jsonwebtoken": "^7.0.0",
     "mongoose": "^4.4.20",
+    "mongoose-url-slugs": "^0.2.1",
     "morgan": "^1.7.0",
     "node-sass": "^3.7.0",
     "reflect-metadata": "0.1.3",
