@@ -1,9 +1,11 @@
 import * as mongoose from 'mongoose';
 import { ControlInterface } from '../shared/interfaces/ControlInterface';
 import { Sluggable } from '../shared/interfaces/Sluggable';
+import { UserInterface } from './UserInterface';
 
-export interface UserModelInterface extends mongoose.Document, ControlInterface, Sluggable {
-  email: string;
-  password: string;
-  remember_token: string;
+export interface UserModelInterface extends mongoose.Document,
+  UserInterface,
+  ControlInterface,
+  Sluggable {
+  //
 }

@@ -24,7 +24,7 @@ let userSchema: mongoose.Schema = new mongoose.Schema({
     type: String,
     required: true
   },
-  remember_token: String,
+  rememberToken: String,
   createdAt: {
     type: Date
   },
