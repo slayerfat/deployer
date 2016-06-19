@@ -3,9 +3,10 @@ import Target from '../models/targets/Target';
 import { TargetModelInterface } from '../models/targets/TargetModelInterface';
 import { Gettable } from './interfaces/Gettable';
 import { Settable } from './interfaces/Settable';
+import { Sluggable } from './interfaces/Sluggable';
 import { UserRepository } from './UserRepository';
 
-export class TargetRepository implements Gettable, Settable {
+export class TargetRepository implements Gettable, Settable, Sluggable {
   getAll(): Promise<TargetModelInterface[]> {
     return new Promise((resolve, reject) => {
       Target
@@ -25,6 +26,19 @@ export class TargetRepository implements Gettable, Settable {
   getOne(id: mongoose.Types.ObjectId): Promise<TargetModelInterface> {
     // TODO
     return undefined;
+  }
+
+  getBySlug(slug: String): Promise<TargetModelInterface> {
+    return new Promise((resolve, reject) => {
+      Target.findOne({slug: slug}).exec().then(target => {
+        return resolve(target);
+      }, err => {
+        // TODO: use morgan or similar to make log files
+        console.log(err);
+
+        return reject(err);
+      });
+    });
   }
 
   store(data: {name: string, commands: string}): Promise<TargetModelInterface> {
