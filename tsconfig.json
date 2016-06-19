@@ -16,7 +16,6 @@
     "backend/models/seeds/user.seeds.ts",
     "backend/models/shared/appendDates.ts",
     "backend/models/shared/appendUsers.ts",
-    "backend/models/shared/controlSchemaPartial.ts",
     "backend/models/shared/interfaces/ControlInterface.ts",
     "backend/models/shared/interfaces/DatesInterface.ts",
     "backend/models/shared/interfaces/UserControlInterface.ts",
