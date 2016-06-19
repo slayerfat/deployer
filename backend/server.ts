@@ -7,6 +7,7 @@ import * as mongoose from 'mongoose';
 import db from './database';
 import loginRoute from './routes/auth/login.route';
 import targetRoute from './routes/targets/targets.route';
+import logRoute from './routes/logs/logs.route';
 import frontEndRoutes from './routes/frontend';
 
 // TODO: IOC
@@ -46,6 +47,7 @@ if (config.env == 'production') {
 
 loginRoute(app);
 targetRoute(app);
+logRoute(app);
 
 app.listen(port, function () {
   console.log(`The backend is serving on port ${port}.`);
