@@ -21,6 +21,7 @@ export class UserRepository implements Gettable {
     // TODO: get the real current user.
     return new Promise<UserModelInterface>((resolve, reject) => {
       User.findOne().exec().then(user => {
+        console.log('user found!');
         resolve(user);
       }, err => {
         console.log(err);

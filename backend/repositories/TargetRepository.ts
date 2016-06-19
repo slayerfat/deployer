@@ -36,7 +36,6 @@ export class TargetRepository implements Gettable, Settable {
         target.save().then(() => {
           return resolve(target);
         }, err => {
-          console.log(err);
           console.log('error saving new target.');
 
           return reject(err);
