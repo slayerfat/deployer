@@ -27,7 +27,7 @@ export class TargetRepository implements Gettable, Settable {
     return undefined;
   }
 
-  store(data: {name: string, commands: string}): Promise<mongoose.Document> {
+  store(data: {name: string, commands: string}): Promise<TargetModelInterface> {
     return new Promise((resolve, reject) => {
       UserRepository.getCurrent().then(model => {
         let target = new Target(data);
@@ -46,7 +46,7 @@ export class TargetRepository implements Gettable, Settable {
     });
   }
 
-  update(id: mongoose.Types.ObjectId): Promise<mongoose.Document> {
+  update(id: mongoose.Types.ObjectId): Promise<TargetModelInterface> {
     // TODO
     return undefined;
   }
