@@ -16,6 +16,8 @@
     "backend/models/logs/Log.ts",
     "backend/models/logs/LogInterface.ts",
     "backend/models/logs/LogModelInterface.ts",
+    "backend/models/seeds/target.seeds.ts",
+    "backend/models/seeds/targetCommands.ts",
     "backend/models/seeds/user.seeds.ts",
     "backend/models/shared/appendDates.ts",
     "backend/models/shared/appendUsers.ts",
