@@ -17,10 +17,10 @@ let targetSchema: mongoose.Schema = new mongoose.Schema({
     unique: true,
     trim: true,
     max: 100,
-    match: /^([\w ,.!?]{1,100})$/
+    match: /^([\w ,.'!?]{1,100})$/
   },
   commands: {
-    type: String,
+    type: Array,
     required: true,
     trim: true,
     max: 1000
