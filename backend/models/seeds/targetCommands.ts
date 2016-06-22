@@ -1,25 +1,33 @@
 import Target from '../targets/Target';
 import * as fs from 'fs';
 import * as mongoose from 'mongoose';
+import { NodeCommands } from '../targets/NodeCommands';
 
 declare type targetCommandsTargets = {
   name: string,
-  commands: string[],
+  commands?: NodeCommands,
   dir?: string,
   gitUrl?: string,
-  extra?: string[]
+  extra?: NodeCommands[]
 };
 
 export let targetCommands = {
   initialCommands: [
-    'echo $PWD',
-    'whoami',
+    {
+      bin: 'whoami',
+      params: null,
+      cwd: null
+    }
   ],
   targets: [
     {
       name: 'Deployer',
-      'commands': ['git pull 2>&1'],
-      'dir': null,
+      commands: {
+        bin: 'git',
+        params: ['pull'],
+        cwd: '/var/www/deployer'
+      },
+      dir: null,
     },
     {
       name: 'Orbiagro',
@@ -27,12 +35,24 @@ export let targetCommands = {
       dir: '/var/www/orbiagro.com.ve',
       gitUrl: 'git@github.com:slayerfat/orbiagro.com.ve.git',
       extra: [
-        '(cd /var/www/orbiagro.com.ve/public/ && '
-        + 'wget http://i.imgur.com/i0YU4Zt.gif --output-document=sin_imagen.gif 2>&1)',
-        '(cd /var/www/orbiagro.com.ve && '
-        + '/var/www/orbiagro.com.ve/node_modules/gulp/bin/gulp.js copy-app-files 2>&1)',
-        '(cd /var/www/orbiagro.com.ve && '
-        + '/var/www/orbiagro.com.ve/node_modules/gulp/bin/gulp.js --production 2>&1)'
+        {
+          bin: 'wget',
+          params: [
+            'http://i.imgur.com/i0YU4Zt.gif',
+            '--output-document=sin_imagen.gif'
+          ],
+          cwd: '/var/www/orbiagro.com.ve'
+        },
+        {
+          bin: 'gulp',
+          params: ['copy-app-files'],
+          cwd: '/var/www/orbiagro.com.ve'
+        },
+        {
+          bin: 'gulp',
+          params: ['--production'],
+          cwd: '/var/www/orbiagro.com.ve'
+        },
       ]
     },
     {
@@ -41,10 +61,16 @@ export let targetCommands = {
       dir: '/var/www/slayerfat.com.ve',
       gitUrl: 'git@github.com:slayerfat/slayerfat.com.ve.git',
       extra: [
-        '(if ! test -e "/var/www/slayerfat.com.ve/database/database.sqlite";then '
-        + 'touch /var/www/slayerfat.com.ve/database/database.sqlite; fi 2>&1)',
-        '(cd /var/www/slayerfat.com.ve && '
-        + '/var/www/slayerfat.com.ve/node_modules/gulp/bin/gulp.js --production 2>&1)'
+        {
+          bin: 'touch',
+          params: ['/var/www/slayerfat.com.ve/database/database.sqlite'],
+          cwd: '/var/www/orbiagro.com.ve'
+        },
+        {
+          bin: 'gulp',
+          params: ['--production'],
+          cwd: '/var/www/orbiagro.com.ve'
+        }
       ]
     },
     {
@@ -53,8 +79,11 @@ export let targetCommands = {
       dir: '/var/www/certificador',
       gitUrl: 'git@github.com:slayerfat/certificador.git',
       extra: [
-        '(cd /var/www/certificador && '
-        + '/var/www/certificador/node_modules/gulp/bin/gulp.js --production 2>&1)',
+        {
+          bin: 'gulp',
+          params: ['--production'],
+          cwd: '/var/www/orbiagro.com.ve'
+        }
       ]
     }
   ],
@@ -83,45 +112,123 @@ export let targetCommands = {
 
   makeCommands(data: targetCommandsTargets) {
     let commands = this.initialCommands;
-    let {dir, gitUrl, extra} = data;
+    let {name, dir, gitUrl = null, extra} = data;
+    console.log(`making commands of ${name}.`);
 
     if (!gitUrl) {
+      console.log(`${name} has no git url.`);
       commands = commands.concat(
         this.checkOrCreateDir(dir, gitUrl),
         this.getGenericCommands(dir)
       );
     } else {
+      console.log(`${name} has git url.`);
       commands = commands.concat(this.getGenericCommands(dir));
     }
 
     if (extra.length > 0) {
+      console.log('extra commands found');
       commands = commands.concat(extra);
     }
 
+    console.log(`commands of ${name} created successfully`);
     return commands;
   },
 
   checkOrCreateDir(dir: string, gitUrl: string) {
-    fs.stat(dir, (err, stats) => {
-      return stats.isDirectory() ? [`(cd ${dir} && git pull)`] : [
-        `git clone ${gitUrl} ${dir}`,
-        `chmod 775 -R ${dir}/storage/ ${dir}/bootstrap/cache/`,
-        `chgrp www-data -R ${dir}/storage/ ${dir}/bootstrap/cache/ ${dir}/public/`,
-        `(cd ${dir} && git submodule init)`,
-        `(cd ${dir} && git submodule update)`,
-      ];
+    let isDir = [
+      {
+        bin: 'git',
+        params: ['pull'],
+        cwd: dir
+      }
+    ];
+
+    let noDir = [
+      {
+        bin: 'git',
+        params: ['clone', `${gitUrl}`, `${dir}`],
+        cwd: dir
+      },
+      {
+        bin: 'chmod',
+        params: ['775', '-R', `${dir}/storage/`, `${dir}/bootstrap/cache/`],
+        cwd: dir
+      },
+      {
+        bin: 'chgrp',
+        params: [
+          'www-data',
+          '-R',
+          `${dir}/storage/`,
+          `${dir}/bootstrap/cache/`,
+          `${dir}/public/`
+        ],
+        cwd: dir
+      },
+      {
+        bin: 'git',
+        params: ['submodule', 'init'],
+        cwd: dir
+      },
+      {
+        bin: 'git',
+        params: ['submodule', 'update'],
+        cwd: dir
+      },
+    ];
+
+    console.log('about to check dir.');
+
+    return fs.stat(dir, (err, stats) => {
+      console.log(`checking if ${dir} exists`);
+      console.log('exists?', stats.isDirectory());
+      return stats.isDirectory() ? isDir : noDir;
     });
   },
 
   getGenericCommands: function (dir: string) {
     return [
-      `(cd ${dir} && git status)`,
-      `(cd ${dir} && git submodule sync)`,
-      `(cd ${dir} && git submodule update --recursive)`,
-      `(cd ${dir} && git submodule status)`,
-      `(cd ${dir} && composer install --no-interaction 2>&1)`,
-      `(cd ${dir} && npm set progress=false && npm install 2>&1)`,
-      `(cd ${dir} && ${dir}/node_modules/bower/bin/bower install --silent 2>&1)`,
+      {
+        bin: 'git',
+        params: ['git', 'status'],
+        cwd: dir
+      },
+      {
+        bin: 'git',
+        params: ['submodule', 'sync'],
+        cwd: dir
+      },
+      {
+        bin: 'git',
+        params: ['submodule', 'update', '--recursive'],
+        cwd: dir
+      },
+      {
+        bin: 'git',
+        params: ['submodule', 'status'],
+        cwd: dir
+      },
+      {
+        bin: 'composer',
+        params: ['install', '--no-interaction'],
+        cwd: dir
+      },
+      {
+        bin: 'npm',
+        params: ['set', 'progress=false'],
+        cwd: dir
+      },
+      {
+        bin: 'npm',
+        params: ['install'],
+        cwd: dir
+      },
+      {
+        bin: `${dir}/node_modules/bower/bin/bower`,
+        params: ['install', '--silent'],
+        cwd: dir
+      },
     ];
   }
 };
