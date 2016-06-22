@@ -27,12 +27,13 @@ export default (truncate?: boolean) => {
 
       user.update(options).exec().then(() => {
         console.log('update complete.');
-        return resolve();
       }, err => {
         console.log(err);
 
         return reject();
       });
+
+      return resolve(user);
     });
   });
 };
