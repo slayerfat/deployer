@@ -77,9 +77,8 @@ export default function targetRoute(app) {
         console.log('log saved successfully');
       });
     }).catch(err => {
+      // TODO: morgan
       console.log(err);
-
-      return res.json({success: false});
     });
   });
 }
