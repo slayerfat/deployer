@@ -5,5 +5,6 @@ export interface LogInterface {
   ip: string;
   headers: Object;
   status: Object;
+  iteration: number;
   results?: Array<{}>;
 }

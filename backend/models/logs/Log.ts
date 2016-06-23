@@ -30,6 +30,10 @@ let logSchema: mongoose.Schema = new mongoose.Schema({
     type: Array,
     max: 1000
   },
+  iteration: {
+    type: Number,
+    required: true
+  },
   createdAt: {
     type: Date
   },

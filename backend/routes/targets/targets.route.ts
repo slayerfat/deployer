@@ -48,7 +48,8 @@ export default function targetRoute(app) {
     let data: LogInterface = {
       ip: req.connection.remoteAddress,
       headers: req.headers,
-      status: ''
+      status: '',
+      iteration: 0
     };
 
     targetRepo.getBySlug(slug).then(target => {
@@ -78,10 +79,8 @@ export default function targetRoute(app) {
       res.json({success: true});
 
       // we need to iterate the commands at least 5 times if they fail.
-      const iterate = function (i?) {
-        i = i || 0;
-
-        if (i >= 4) {
+      const iterate = function (i = 0) {
+        if (i >= 5) {
           return;
         }
 
@@ -93,6 +92,7 @@ export default function targetRoute(app) {
             return obj.success === false;
           });
           data.results = results;
+          data.iteration = i;
 
           return logRepo.store(data);
         }).then(() => {
