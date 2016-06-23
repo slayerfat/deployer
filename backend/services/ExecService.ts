@@ -1,4 +1,5 @@
 import { NodeCommands } from '../models/targets/NodeCommands';
+import { AppService } from './AppService';
 
 const execFile = require('child_process').execFile;
 
@@ -39,6 +40,8 @@ export class ExecService {
    * @returns {Promise<{}>}
    */
   private make(command: string, args?: String[], cwd?: string): Promise<{}> {
+    const start = AppService.timer();
+
     return new Promise((resolve) => {
       this.exec(command, args, {cwd: cwd}, (error, stdOut, stdErr) => {
         if (error) {
@@ -48,7 +51,10 @@ export class ExecService {
           return resolve({success: false, error});
         }
 
-        return resolve({success: true, command, args, cwd, stdOut, stdErr});
+        const end = AppService.timer(start);
+        const time = `${end} ms.`;
+
+        return resolve({success: true, command, args, cwd, stdOut, stdErr, time});
       });
     });
   }

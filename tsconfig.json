@@ -43,6 +43,7 @@
     "backend/routes/logs/logs.route.ts",
     "backend/routes/targets/targets.route.ts",
     "backend/server.ts",
+    "backend/services/AppService.ts",
     "backend/services/ExecService.ts",
     "config/config.ts",
     "config/gulp/seeds.ts",
