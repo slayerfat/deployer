@@ -5,7 +5,7 @@ export interface LogInterface {
   ip: string;
   headers: Object;
   status: Object;
-  results?: string;
+  results?: Array<{}>;
   error?: string;
   errorCode?: string;
 }

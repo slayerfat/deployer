@@ -27,7 +27,7 @@ let logSchema: mongoose.Schema = new mongoose.Schema({
     max: 100
   },
   results: {
-    type: String,
+    type: Array,
     max: 1000
   },
   error: {
