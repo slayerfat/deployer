@@ -11,6 +11,13 @@ declare type targetCommandsTargets = {
   extra?: NodeCommands[]
 };
 
+const paths = {
+  deployer: '/var/www/deployer',
+  orbiagro: '/var/www/orbiagro.com.ve',
+  slayerfat: '/var/www/slayerfat.com.ve',
+  certificador: '/var/www/certificador'
+};
+
 export let targetCommands = {
   initialCommands: [
     {
@@ -25,14 +32,14 @@ export let targetCommands = {
       commands: {
         bin: 'git',
         params: ['pull'],
-        cwd: '/var/www/deployer'
+        cwd: paths.deployer
       },
       dir: null,
     },
     {
       name: 'Orbiagro',
       commands: null,
-      dir: '/var/www/orbiagro.com.ve',
+      dir: paths.orbiagro,
       gitUrl: 'git@github.com:slayerfat/orbiagro.com.ve.git',
       extra: [
         {
@@ -41,48 +48,48 @@ export let targetCommands = {
             'http://i.imgur.com/i0YU4Zt.gif',
             '--output-document=sin_imagen.gif'
           ],
-          cwd: '/var/www/orbiagro.com.ve'
+          cwd: paths.orbiagro
         },
         {
-          bin: 'gulp',
+          bin: `${paths.orbiagro}/node_modules/gulp/bin/gulp.js`,
           params: ['copy-app-files'],
-          cwd: '/var/www/orbiagro.com.ve'
+          cwd: paths.orbiagro
         },
         {
-          bin: 'gulp',
+          bin: `${paths.orbiagro}/node_modules/gulp/bin/gulp.js`,
           params: ['--production'],
-          cwd: '/var/www/orbiagro.com.ve'
+          cwd: paths.orbiagro
         },
       ]
     },
     {
       name: 'Slayerfat\'s blog',
       commands: null,
-      dir: '/var/www/slayerfat.com.ve',
+      dir: paths.slayerfat,
       gitUrl: 'git@github.com:slayerfat/slayerfat.com.ve.git',
       extra: [
         {
           bin: 'touch',
-          params: ['/var/www/slayerfat.com.ve/database/database.sqlite'],
-          cwd: '/var/www/orbiagro.com.ve'
+          params: [`${paths.slayerfat}/database/database.sqlite`],
+          cwd: paths.slayerfat,
         },
         {
-          bin: 'gulp',
+          bin: `${paths.slayerfat}/node_modules/gulp/bin/gulp.js`,
           params: ['--production'],
-          cwd: '/var/www/orbiagro.com.ve'
+          cwd: paths.slayerfat,
         }
       ]
     },
     {
       name: 'Certificador',
       commands: null,
-      dir: '/var/www/certificador',
+      dir: paths.certificador,
       gitUrl: 'git@github.com:slayerfat/certificador.git',
       extra: [
         {
-          bin: 'gulp',
+          bin: `${paths.certificador}/node_modules/gulp/bin/gulp.js`,
           params: ['--production'],
-          cwd: '/var/www/orbiagro.com.ve'
+          cwd: paths.certificador,
         }
       ]
     }
@@ -191,7 +198,7 @@ export let targetCommands = {
     return [
       {
         bin: 'git',
-        params: ['git', 'status'],
+        params: ['status'],
         cwd: dir
       },
       {
