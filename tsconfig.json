@@ -41,6 +41,7 @@
     "backend/routes/auth/login.route.ts",
     "backend/routes/frontend.ts",
     "backend/routes/logs/logs.route.ts",
+    "backend/routes/middlewares/WebHooks.ts",
     "backend/routes/targets/targets.route.ts",
     "backend/server.ts",
     "backend/services/AppService.ts",

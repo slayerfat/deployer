@@ -3,6 +3,7 @@ import { TargetRepository } from '../../repositories/TargetRepository';
 import { LogRepository } from '../../repositories/LogRepository';
 import { LogInterface } from '../../models/logs/LogInterface';
 import { ExecService } from '../../services/ExecService';
+import { WebHooks } from '../middlewares/WebHooks';
 
 // TODO: jwt
 // import * as jwt from 'jsonwebtoken';
@@ -12,6 +13,7 @@ export default function targetRoute(app, router) {
   const targetRepo = new TargetRepository();
   const logRepo = new LogRepository();
   const exec = new ExecService();
+  const webHook = new WebHooks();
 
   /**
    * Gets a list of elements.
@@ -39,9 +41,9 @@ export default function targetRoute(app, router) {
   });
 
   /**
-   * Get a single element.
+   * Pull a target and executes related commands.
    */
-  router.get('/targets/pull/:slug', (req: Request, res: Response) => {
+  router.get('/targets/pull/:slug', webHook.handle.bind(webHook), (req: Request, res: Response) => {
     const slug = req.params.slug;
 
     // default data for all logs
