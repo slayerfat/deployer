@@ -77,19 +77,35 @@ export default function targetRoute(app) {
       data.target = target._id;
       res.json({success: true});
 
-      // we have to execute the commands
-      exec.run(target.commands).then(results => {
-        // we have to check if any of the commands failed, 
-        // if so, we set the status to false
-        data.status = !results.some(obj => {
-          return obj.success === false;
-        });
-        data.results = results;
+      // we need to iterate the commands at least 5 times if they fail.
+      const iterate = function (i?) {
+        i = i || 0;
 
-        return logRepo.store(data);
-      }).then(() => {
-        console.log('log saved successfully');
-      });
+        if (i >= 4) {
+          return;
+        }
+
+        // we have to execute the commands
+        exec.run(target.commands).then(results => {
+          // we have to check if any of the commands failed,
+          // if so, we set the status to false
+          data.status = !results.some(obj => {
+            return obj.success === false;
+          });
+          data.results = results;
+
+          return logRepo.store(data);
+        }).then(() => {
+          // if the execution failed, we have to try again one minute later.
+          if (!data.status) {
+            return setTimeout(() => {
+              return iterate(++i);
+            }, 6e4);
+          }
+        });
+      };
+
+      return iterate();
     }).catch(err => {
       // TODO: morgan
       console.log(err);

@@ -46,7 +46,7 @@ export class ExecService {
       this.exec(command, args, {cwd: cwd}, (error, stdOut, stdErr) => {
         if (error) {
           // TODO: morgan
-          console.log('errors found: ', command, args, cwd, error.message);
+          // console.log('errors found: ', command, args, cwd, error.message);
 
           return resolve({success: false, error});
         }
