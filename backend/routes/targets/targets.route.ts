@@ -3,7 +3,6 @@ import { TargetRepository } from '../../repositories/TargetRepository';
 import { LogRepository } from '../../repositories/LogRepository';
 import { LogInterface } from '../../models/logs/LogInterface';
 import { ExecService } from '../../services/ExecService';
-import { NodeCommands } from '../../models/targets/NodeCommands';
 
 // TODO: jwt
 // import * as jwt from 'jsonwebtoken';
@@ -51,8 +50,6 @@ export default function targetRoute(app) {
           target: slug
         };
 
-        console.log('target: ', target);
-
         // if no target is found, then we just
         // respond with the status already made
         return logRepo.store(data).then(() => {
@@ -67,19 +64,16 @@ export default function targetRoute(app) {
         });
       }
 
-      // if there is a target, we just respond ok
-      data.status = {success: true};
+      // if there is a target, we just respond success
       data.target = target._id;
-
       res.json({success: true});
 
-      // TODO: execute commands
-      target.commands.forEach((command: NodeCommands) => {
-        console.log('commands: ', command.bin, command.params, command.cwd);
-        exec.run(command.bin, command.params, command.cwd);
-      });
-
-      logRepo.store(data).then(() => {
+      // we have to execute the commands
+      exec.run(target.commands).then(results => {
+        data.status = results.success;
+        data.results = results.results;
+        return logRepo.store(data);
+      }).then(() => {
         console.log('log saved successfully');
       });
     }).catch(err => {
