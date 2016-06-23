@@ -48,7 +48,7 @@ export class ExecService {
           return resolve({success: false, error});
         }
 
-        return resolve({success: true, stdOut, stdErr});
+        return resolve({success: true, command, args, cwd, stdOut, stdErr});
       });
     });
   }
