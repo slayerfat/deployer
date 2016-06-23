@@ -13,6 +13,9 @@ export default function targetRoute(app) {
   const logRepo = new LogRepository();
   let exec = new ExecService();
 
+  /**
+   * Gets a list of elements.
+   */
   app.get('/api/targets', (req: Request, res: Response) => {
     targetRepo.getAll().then(targets => {
       return res.json(targets);
@@ -21,6 +24,9 @@ export default function targetRoute(app) {
     });
   });
 
+  /**
+   * Store an element.
+   */
   app.post('/api/targets', (req: Request, res: Response) => {
     targetRepo.store({
       name: req.body.name,
@@ -32,6 +38,9 @@ export default function targetRoute(app) {
     });
   });
 
+  /**
+   * Get a single element.
+   */
   app.get('/api/targets/pull/:slug', (req: Request, res: Response) => {
     const slug = req.params.slug;
 
@@ -70,8 +79,13 @@ export default function targetRoute(app) {
 
       // we have to execute the commands
       exec.run(target.commands).then(results => {
-        data.status = results.success;
-        data.results = results.results;
+        // we have to check if any of the commands failed, 
+        // if so, we set the status to false
+        data.status = !results.some(obj => {
+          return obj.success === false;
+        });
+        data.results = results;
+
         return logRepo.store(data);
       }).then(() => {
         console.log('log saved successfully');
