@@ -6,6 +6,4 @@ export interface LogInterface {
   headers: Object;
   status: Object;
   results?: Array<{}>;
-  error?: string;
-  errorCode?: string;
 }

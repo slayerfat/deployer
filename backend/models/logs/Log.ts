@@ -30,16 +30,6 @@ let logSchema: mongoose.Schema = new mongoose.Schema({
     type: Array,
     max: 1000
   },
-  error: {
-    type: String,
-    trim: true,
-    max: 255
-  },
-  errorCode: {
-    type: Number,
-    max: 65535,
-    min: 0
-  },
   createdAt: {
     type: Date
   },
