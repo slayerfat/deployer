@@ -4,11 +4,11 @@ import { LogRepository } from '../../repositories/LogRepository';
 // TODO: jwt
 // import * as jwt from 'jsonwebtoken';
 
-export default function targetRoute(app) {
+export default function targetRoute(app, router) {
   // TODO: IOC
   const logRepo = new LogRepository();
 
-  app.get('/api/logs', (req: Request, res: Response) => {
+  router.get('/logs', (req: Request, res: Response) => {
     logRepo.getAll().then(logs => {
       return res.json(logs);
     }, err => {
@@ -16,7 +16,7 @@ export default function targetRoute(app) {
     });
   });
 
-  app.post('/api/logs', (req: Request, res: Response) => {
+  router.post('/logs', (req: Request, res: Response) => {
     logRepo.store({
       target: req.body.target,
       ip: req.body.ip,

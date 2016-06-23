@@ -7,16 +7,16 @@ import { ExecService } from '../../services/ExecService';
 // TODO: jwt
 // import * as jwt from 'jsonwebtoken';
 
-export default function targetRoute(app) {
+export default function targetRoute(app, router) {
   // TODO: IOC
   const targetRepo = new TargetRepository();
   const logRepo = new LogRepository();
-  let exec = new ExecService();
+  const exec = new ExecService();
 
   /**
    * Gets a list of elements.
    */
-  app.get('/api/targets', (req: Request, res: Response) => {
+  router.get('/targets', (req: Request, res: Response) => {
     targetRepo.getAll().then(targets => {
       return res.json(targets);
     }, err => {
@@ -27,7 +27,7 @@ export default function targetRoute(app) {
   /**
    * Store an element.
    */
-  app.post('/api/targets', (req: Request, res: Response) => {
+  router.post('/targets', (req: Request, res: Response) => {
     targetRepo.store({
       name: req.body.name,
       commands: req.body.commands
@@ -41,7 +41,7 @@ export default function targetRoute(app) {
   /**
    * Get a single element.
    */
-  app.get('/api/targets/pull/:slug', (req: Request, res: Response) => {
+  router.get('/targets/pull/:slug', (req: Request, res: Response) => {
     const slug = req.params.slug;
 
     // default data for all logs

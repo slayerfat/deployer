@@ -20,6 +20,7 @@ const port = config.env == 'development' ?
   config.ports.backend : config.ports.frontend;
 
 let app = express();
+let router = express.Router();
 
 // cross origin requests
 app.use(cors({origin: config.url}));
@@ -45,9 +46,12 @@ if (config.env == 'production') {
   frontEndRoutes(app);
 }
 
-loginRoute(app);
-targetRoute(app);
-logRoute(app);
+loginRoute(app, router);
+targetRoute(app, router);
+logRoute(app, router);
+
+// routes are be prefixed with /api
+app.use('/api', router);
 
 app.listen(port, function () {
   console.log(`The backend is serving on port ${port}.`);

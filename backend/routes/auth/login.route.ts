@@ -4,8 +4,8 @@ import * as jwt from 'jsonwebtoken';
 import { Comprobable } from '../../../src/app/shared/interfaces';
 import { UserModelInterface } from '../../models/users/UserModelInterface';
 
-export default function loginRoute(app) {
-  app.post('/api/login', function (req: Request, res: Response) {
+export default function loginRoute(app, router) {
+  router.post('/login', function (req: Request, res: Response) {
     const message = {success: false, message: 'Authentication failed.'};
 
     User.findOne({name: req.body.name}).exec().then((user: UserModelInterface) => {
