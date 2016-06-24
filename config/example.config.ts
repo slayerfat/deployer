@@ -20,6 +20,8 @@ export default {
     test: 'mongodb://localhost:27017/deployer-test'
   },
   endpoints: {
-    login: url + '/api/login'
+    login: url + '/api/login',
+    logs: url + '/api/logs',
+    targets: url + '/api/targets'
   }
 };

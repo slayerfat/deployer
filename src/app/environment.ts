@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   endpoints: {
-    login: ''
+    login: '',
+    logs: '',
+    targets: ''
   }
 };
