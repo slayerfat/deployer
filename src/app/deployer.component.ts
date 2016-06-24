@@ -6,6 +6,7 @@ import { FooterComponent } from './footer';
 import { LoginComponent } from './+login';
 import { DashboardComponent } from './+dashboard';
 import { HomeComponent } from './+home';
+import { LogsComponent } from './+logs';
 
 @Component({
   moduleId: module.id,
@@ -19,7 +20,8 @@ import { HomeComponent } from './+home';
   {path: '/', component: HomeComponent},
   {path: '/home', component: HomeComponent},
   {path: '/login', component: LoginComponent},
-  {path: '/dashboard', component: DashboardComponent}
+  {path: '/dashboard', component: DashboardComponent},
+  {path: '/logs', component: LogsComponent}
 ])
 export class DeployerAppComponent {
 }

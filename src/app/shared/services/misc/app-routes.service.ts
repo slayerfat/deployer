@@ -11,6 +11,12 @@ export class AppRoutesService {
       name: 'Login',
       path: '/login',
       shortDesc: 'Login!'
+    },
+    {
+      title: 'Logs',
+      name: 'Logs',
+      path: '/logs',
+      shortDesc: 'See the system logs.'
     }
   ];
 

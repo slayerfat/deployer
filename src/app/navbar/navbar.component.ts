@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit {
 
   homeLink: AppRoute;
   loginLink: AppRoute;
+  logsLink: AppRoute;
 
   constructor(public appStrings: AppStringsService, public appRoutes: AppRoutesService) {
     this.homeLink = this.appRoutes.getRoutes()
@@ -21,6 +22,9 @@ export class NavbarComponent implements OnInit {
 
     this.loginLink = this.appRoutes.getRoutes()
       .find(route => route.name == 'Login');
+
+    this.logsLink = this.appRoutes.getRoutes()
+      .find(route => route.name == 'Logs');
   }
 
   ngOnInit() {
