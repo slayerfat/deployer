@@ -6,7 +6,19 @@ import Log from '../models/logs/Log';
 
 export class LogRepository implements Gettable, Settable {
   getAll(): Promise<LogModelInterface[]> {
-    return undefined;
+    return new Promise((resolve, reject) => {
+      Log
+        .find({})
+        .sort({updatedAt: -1})
+        .exec()
+        .then((targets: LogModelInterface[]) => {
+          return resolve(targets);
+        }, err => {
+          console.log(err);
+
+          return reject(err);
+        });
+    });
   }
 
   getOne(id: mongoose.Types.ObjectId): Promise<LogModelInterface> {
