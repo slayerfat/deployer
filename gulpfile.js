@@ -17,12 +17,13 @@ try {
 
 const paths = {
   backend: {
-    entry: ['dist/backend/server.js'],
-    files: ['dist/**/*.{html,htm,css,js}'],
+    entry: ['dist-backend/backend/server.js'],
+    files: ['dist-backend/**/*.{html,htm,css,js}'],
     watchList: 'backend/**/*.ts'
   },
   frontend: {
-    watchList: 'src/**/*.ts'
+    watchList: 'src/**/*.ts',
+    files: ['dist/**/*.{html,htm,css,js}']
   }
 };
 
@@ -49,7 +50,7 @@ gulp.task('ts:compile:watch', ['ts:compile'], function () {
 });
 
 gulp.task('ts:lint', function () {
-  return gulp.src([paths.backend.watchList, paths.frontend.watchList])
+  return gulp.src([paths.backend.watchList])
     .pipe(tsLint())
     .pipe(tsLint.report('verbose'));
 });
@@ -64,7 +65,7 @@ gulp.task('server', function () {
   server.start();
 
   // use gulp.watch to trigger server actions(notify, start or stop)
-  gulp.watch(paths.backend.files, function (file) {
+  gulp.watch([paths.frontend.files, paths.backend.files], function (file) {
     server.notify.apply(server, [file]);
   });
 
