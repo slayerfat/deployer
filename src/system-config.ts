@@ -49,6 +49,8 @@ const barrels: string[] = [
   'app/shared/components/form-error',
   'app/+logs',
   'app/+logs/shared/+details',
+  'app/+logs/shared/+list',
+  'app/shared/components/default-table',
   /** @cli-barrel */
 ];
 

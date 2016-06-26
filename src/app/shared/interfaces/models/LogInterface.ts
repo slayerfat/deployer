@@ -1,0 +1,1 @@
+/home/thaurissan/Code/deployer/backend/models/logs/LogInterface.ts
