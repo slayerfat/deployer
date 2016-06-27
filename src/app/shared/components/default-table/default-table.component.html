@@ -4,8 +4,10 @@
 
 <ng-table [config]="config.sorting"
           (tableChanged)="onChangeTable()"
-          [rows]="rows" [columns]="columns">
+          [rows]="rows" [columns]="columns"
+          (cellClicked)="passCellClickedEvent($event)">
 </ng-table>
+
 <pagination *ngIf="config.paging"
             class="pagination-sm"
             [(ngModel)]="page"
@@ -17,7 +19,3 @@
             (pageChanged)="onChangeTable($event)"
             (numPages)="numPages = $event">
 </pagination>
-<pre *ngIf="config.paging"
-     class="card card-block card-header">
-  Page: {{page}} / {{numPages}}
-</pre>

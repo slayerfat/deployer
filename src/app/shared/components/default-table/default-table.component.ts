@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { AlertComponent, PAGINATION_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
-import { NG_TABLE_DIRECTIVES } from 'ng2-table/ng2-table';
+import { NG_TABLE_DIRECTIVES, NgCellClickData } from 'ng2-table/ng2-table';
 import { PaginationPagesInterface, ConfigInterface, ColumnsInterface } from './';
 
 @Component({
@@ -26,6 +26,12 @@ export class DefaultTableComponent {
    * @type {Array}
    */
   public rows: Array<any> = [];
+
+  /**
+   * Current pagination page.
+   *
+   * @type {number}
+   */
   public page: number = 1;
 
   /**
@@ -34,8 +40,19 @@ export class DefaultTableComponent {
    * @type {number}
    */
   public itemsPerPage: number = 10;
+
+  /**
+   * Controls the number set available to click in the paginator.
+   *
+   * @type {number}
+   */
   public maxSize: number = 5;
-  public numPages: number = 1;
+
+  /**
+   *
+   * @type {number}
+   */
+  public numPages: number = 5;
 
   /**
    * The length of the current elements.
@@ -43,6 +60,8 @@ export class DefaultTableComponent {
    * @type {number}
    */
   public length: number = 0;
+
+  @Output() public cellClicked: EventEmitter<any> = new EventEmitter();
 
   /**
    * The data to be displayed in the table.
@@ -76,12 +95,21 @@ export class DefaultTableComponent {
   }
 
   /**
+   * Passes the cell click event to the parent component.
+   *
+   * @param {NgCellClickData} data
+   */
+  public passCellClickedEvent(data: NgCellClickData<any>): void {
+    this.cellClicked.emit(data);
+  }
+
+  /**
    * Changes the page according to the sent page and data.
    *
-   * @param page
+   * @param {PaginationPagesInterface} page
    * @returns {any[]}
    */
-  public changePage(page: any): Array<any> {
+  public changePage(page: PaginationPagesInterface): Array<any> {
     let start = (page.page - 1) * page.itemsPerPage;
     let end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : this.updatedData.length;
 
@@ -91,7 +119,7 @@ export class DefaultTableComponent {
   /**
    * Changes the table according to the page event.
    *
-   * @param page
+   * @param {PaginationPagesInterface} page
    */
   public onChangeTable(page: PaginationPagesInterface = {
     page: this.page,
