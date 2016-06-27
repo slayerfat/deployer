@@ -1,8 +1,13 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { LogService, DefaultTableComponent, LogInterface } from '../../../shared/';
 import { AlertComponent, PAGINATION_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
-import { NG_TABLE_DIRECTIVES } from 'ng2-table/ng2-table';
-import { ColumnsInterface } from '../../../shared/components/default-table/';
+import { NG_TABLE_DIRECTIVES, NgCellClickData } from 'ng2-table/ng2-table';
+import {
+  LogService,
+  DefaultTableComponent,
+  LogInterface,
+  ColumnsInterface
+} from '../../../shared/';
 
 @Component({
   moduleId: module.id,
@@ -25,7 +30,7 @@ export class ListComponent implements OnInit {
   public length: number = 0;
   public data: LogInterface[];
 
-  public constructor(private logService: LogService) {
+  public constructor(private logService: LogService, private router: Router) {
   }
 
   public ngOnInit(): void {
@@ -33,5 +38,16 @@ export class ListComponent implements OnInit {
       this.data = results;
       this.length = this.data.length;
     });
+  }
+
+  /**
+   * Send the user to the Log details component with the related id.
+   *
+   * @param {NgCellClickData} data
+   */
+  public sendToDetails(data: NgCellClickData<{_id: any}>) {
+    console.log(data);
+    // TODO waiting on router
+    // this.router.navigate(['/details', data.row._id]);
   }
 }
