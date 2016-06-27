@@ -7,7 +7,7 @@ import { Sluggable } from './interfaces/Sluggable';
 import { UserRepository } from './UserRepository';
 
 export class TargetRepository implements Gettable, Settable, Sluggable {
-  getAll(): Promise<TargetModelInterface[]> {
+  public getAll(): Promise<TargetModelInterface[]> {
     return new Promise((resolve, reject) => {
       Target
         .find({})
@@ -23,12 +23,12 @@ export class TargetRepository implements Gettable, Settable, Sluggable {
     });
   }
 
-  getOne(id: mongoose.Types.ObjectId): Promise<TargetModelInterface> {
+  public getOne(id: mongoose.Types.ObjectId): Promise<TargetModelInterface> {
     // TODO
     return undefined;
   }
 
-  getBySlug(slug: String): Promise<TargetModelInterface> {
+  public getBySlug(slug: String): Promise<TargetModelInterface> {
     return new Promise((resolve, reject) => {
       Target.findOne({slug: slug}).exec().then(target => {
         return resolve(target);
@@ -41,7 +41,7 @@ export class TargetRepository implements Gettable, Settable, Sluggable {
     });
   }
 
-  store(data: {name: string, commands: string}): Promise<TargetModelInterface> {
+  public store(data: {name: string, commands: string}): Promise<TargetModelInterface> {
     return new Promise((resolve, reject) => {
       UserRepository.getCurrent().then(model => {
         let target = new Target(data);
@@ -60,7 +60,7 @@ export class TargetRepository implements Gettable, Settable, Sluggable {
     });
   }
 
-  update(id: mongoose.Types.ObjectId): Promise<TargetModelInterface> {
+  public update(id: mongoose.Types.ObjectId): Promise<TargetModelInterface> {
     // TODO
     return undefined;
   }

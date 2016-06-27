@@ -16,7 +16,7 @@ export class AppStringsService {
     }
   ];
 
-  validation =  {
+  public validation = {
     required: {
       message: 'The input is required.'
     },

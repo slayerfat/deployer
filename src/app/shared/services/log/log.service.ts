@@ -14,7 +14,7 @@ export class LogService {
     this.headers.append('Content-Type', 'application/json');
   }
 
-  index(): Observable<Response> {
+  public index(): Observable<Response> {
     return this.http.get(environment.endpoints.logs)
       .map((res) => res.json())
       .catch(this.handleError);

@@ -4,13 +4,6 @@ import User from '../models/users/User';
 import { UserModelInterface } from '../models/users/UserModelInterface';
 
 export class UserRepository implements Gettable {
-  getAll(): Promise<mongoose.Document[]> {
-    return undefined;
-  }
-
-  getOne(id: mongoose.Types.ObjectId): Promise<mongoose.Document> {
-    return undefined;
-  }
 
   /**
    * Gets the current user.
@@ -30,5 +23,13 @@ export class UserRepository implements Gettable {
         reject(err);
       });
     });
+  }
+
+  public getAll(): Promise<mongoose.Document[]> {
+    return undefined;
+  }
+
+  public getOne(id: mongoose.Types.ObjectId): Promise<mongoose.Document> {
+    return undefined;
   }
 }

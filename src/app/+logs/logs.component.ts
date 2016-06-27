@@ -14,7 +14,7 @@ import { ListComponent } from './shared/+list/list.component';
 })
 @Routes([
   {path: '/', component: ListComponent},
-  {path: '/details', component: DetailsComponent}
+  {path: '/details/:id', component: DetailsComponent}
 ])
 export class LogsComponent implements OnInit {
 

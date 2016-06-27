@@ -14,7 +14,7 @@ export class ExecService {
    * @param commands NodeCommands[]
    * @returns {Promise<{}>}
    */
-  run(commands: NodeCommands[]): Promise<{success: boolean, results: Object[]}[]> {
+  public run(commands: NodeCommands[]): Promise<{success: boolean, results: Object[]}[]> {
     let promises: Promise<Promise<{}>>[] = [];
 
     // we make an array of all the commands to then execute the promises.

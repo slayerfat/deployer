@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AbstractControl, Control } from '@angular/common';
 import { FormElement } from './FormElement';
 
@@ -8,14 +8,11 @@ import { FormElement } from './FormElement';
   templateUrl: 'form-error.component.html',
   styleUrls: ['form-error.component.css'],
 })
-export class FormErrorComponent implements OnInit {
-  @Input() control: AbstractControl;
-  @Input() errorElements: FormElement[] = [];
+export class FormErrorComponent {
+  @Input() public control: AbstractControl;
+  @Input() public errorElements: FormElement[] = [];
 
   constructor() {
     this.control = new Control();
-  }
-
-  ngOnInit() {
   }
 }

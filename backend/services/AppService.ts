@@ -6,7 +6,7 @@ export class AppService {
    * @param time
    * @returns {number[] | number}
    */
-  static timer(time?): number[] | number {
+  public static timer(time?): number[] | number {
     if (!time) {
       return process.hrtime();
     }

@@ -4,8 +4,6 @@ import { Control } from '@angular/common';
 @Injectable()
 export class Validator {
 
-  constructor() {}
-
   /**
    * Checks the value and returns true if is invalid.
    *

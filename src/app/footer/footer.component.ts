@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AppStringsService } from '../shared';
 
 @Component({
@@ -7,14 +7,10 @@ import { AppStringsService } from '../shared';
   templateUrl: 'footer.component.html',
   styleUrls: ['footer.component.css']
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
   public year: number;
 
   constructor(public appStrings: AppStringsService) {
     this.year = new Date().getFullYear();
   }
-
-  ngOnInit() {
-  }
-
 }

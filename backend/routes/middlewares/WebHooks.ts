@@ -3,8 +3,8 @@ import { LogInterface } from '../../models/logs/LogInterface';
 import Log from '../../models/logs/Log';
 
 export class WebHooks {
-  static OK_BUT_REJECTED = 'Request ok, but Rejected.';
-  static FORBIDDEN = 'Forbidden.';
+  public static OK_BUT_REJECTED = 'Request ok, but Rejected.';
+  public static FORBIDDEN = 'Forbidden.';
   private request: Request;
   private data: LogInterface = {
     ip: '',
@@ -24,7 +24,7 @@ export class WebHooks {
    * @param {Function} next
    * @returns {Function | Response}
    */
-  handle(req: Request, res: Response, next: Function) {
+  public handle(req: Request, res: Response, next: Function) {
     this.request = req;
     this.data.ip = req.connection.remoteAddress;
     this.data.headers = req.headers;

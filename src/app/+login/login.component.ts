@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ControlGroup, FormBuilder, Validators, AbstractControl } from '@angular/common';
 import { UserAuthService, FormErrorComponent, FormElement, AppStringsService } from '../shared/';
@@ -10,20 +10,20 @@ import { UserAuthService, FormErrorComponent, FormElement, AppStringsService } f
   styleUrls: ['login.component.css'],
   directives: [FormErrorComponent],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  heading: string;
-  form: ControlGroup;
-  nameControl: AbstractControl;
-  pwControl: AbstractControl;
-  nameErrorElements: FormElement[] = [];
-  pwErrorElements: FormElement[] = [];
+  public heading: string;
+  public form: ControlGroup;
+  public nameControl: AbstractControl;
+  public pwControl: AbstractControl;
+  public nameErrorElements: FormElement[] = [];
+  public pwErrorElements: FormElement[] = [];
 
   constructor(private userAuthService: UserAuthService,
-              private appStrings: AppStringsService,
-              private router: Router,
-              private fb: FormBuilder,
-              private strings: AppStringsService) {
+    private appStrings: AppStringsService,
+    private router: Router,
+    private fb: FormBuilder,
+    private strings: AppStringsService) {
     let brand = appStrings.brand;
     this.heading = `Login to ${brand}!`;
 
@@ -46,14 +46,11 @@ export class LoginComponent implements OnInit {
     ];
   }
 
-  onSubmit(data: any) {
+  public onSubmit(data: any) {
     this.userAuthService.login(data.name, data.password).subscribe(result => {
       if (result) {
         this.router.navigate(['/dashboard']);
       }
     });
-  }
-
-  ngOnInit() {
   }
 }

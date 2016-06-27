@@ -5,7 +5,7 @@ import { Settable } from './interfaces/Settable';
 import Log from '../models/logs/Log';
 
 export class LogRepository implements Gettable, Settable {
-  getAll(): Promise<LogModelInterface[]> {
+  public getAll(): Promise<LogModelInterface[]> {
     return new Promise((resolve, reject) => {
       Log
         .find({})
@@ -21,11 +21,12 @@ export class LogRepository implements Gettable, Settable {
     });
   }
 
-  getOne(id: mongoose.Types.ObjectId): Promise<LogModelInterface> {
+  public getOne(id: mongoose.Types.ObjectId): Promise<LogModelInterface> {
+    // TODO implement
     return undefined;
   }
 
-  store(data: Object): Promise<LogModelInterface> {
+  public store(data: Object): Promise<LogModelInterface> {
     return new Promise((resolve, reject) => {
       Log.create(data).then(log => {
         resolve(log);
@@ -38,7 +39,8 @@ export class LogRepository implements Gettable, Settable {
     });
   }
 
-  update(id: mongoose.Types.ObjectId): Promise<LogModelInterface> {
+  public update(id: mongoose.Types.ObjectId): Promise<LogModelInterface> {
+    // TODO implement
     return undefined;
   }
 }

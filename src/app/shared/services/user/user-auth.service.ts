@@ -13,7 +13,7 @@ export class UserAuthService {
     this.loggedIn = !!localStorage.getItem('auth_token');
   }
 
-  login(name, password): Observable<Response> {
+  public login(name, password): Observable<Response> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -32,12 +32,12 @@ export class UserAuthService {
       }).catch(this.handleError);
   }
 
-  logout() {
+  public logout() {
     localStorage.removeItem('auth_token');
     this.loggedIn = false;
   }
 
-  isLoggedIn() {
+  public isLoggedIn() {
     return this.loggedIn;
   }
 

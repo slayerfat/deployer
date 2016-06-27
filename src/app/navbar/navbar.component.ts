@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { AppStringsService, AppRoutesService, AppRoute } from '../shared';
 
@@ -10,11 +10,11 @@ import { AppStringsService, AppRoutesService, AppRoute } from '../shared';
   directives: [ROUTER_DIRECTIVES],
   providers: [AppRoutesService]
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
 
-  homeLink: AppRoute;
-  loginLink: AppRoute;
-  logsLink: AppRoute;
+  public homeLink: AppRoute;
+  public loginLink: AppRoute;
+  public logsLink: AppRoute;
 
   constructor(public appStrings: AppStringsService, public appRoutes: AppRoutesService) {
     this.homeLink = this.appRoutes.getRoutes()
@@ -25,8 +25,5 @@ export class NavbarComponent implements OnInit {
 
     this.logsLink = this.appRoutes.getRoutes()
       .find(route => route.name == 'Logs');
-  }
-
-  ngOnInit() {
   }
 }
