@@ -11,6 +11,10 @@
 
 # IDEs and editors
 /.idea
+.project
+.classpath
+*.launch
+.settings/
 
 # misc
 /.sass-cache

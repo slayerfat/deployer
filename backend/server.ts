@@ -16,7 +16,7 @@ import frontEndRoutes from './routes/frontend';
 // http://inversify.io/
 
 // server default port
-const port = config.env == 'development' ?
+const port = config.env === 'development' ?
   config.ports.backend : config.ports.frontend;
 
 let app = express();
@@ -35,14 +35,14 @@ app.set('jwtSecret', config.jwtSecret);
 // database initiation
 db(mongoose);
 
-if (config.env == 'development') {
+if (config.env === 'development') {
   // use morgan to log requests to the console
   // noinspection TypeScriptValidateTypes
   app.use(morgan('dev'));
 }
 
 // backend routes
-if (config.env == 'production') {
+if (config.env === 'production') {
   frontEndRoutes(app);
 }
 

@@ -18,12 +18,12 @@ export class NavbarComponent {
 
   constructor(public appStrings: AppStringsService, public appRoutes: AppRoutesService) {
     this.homeLink = this.appRoutes.getRoutes()
-      .find(route => route.title == this.appStrings.brand);
+      .find(route => route.title === this.appStrings.brand);
 
     this.loginLink = this.appRoutes.getRoutes()
-      .find(route => route.name == 'Login');
+      .find(route => route.name === 'Login');
 
     this.logsLink = this.appRoutes.getRoutes()
-      .find(route => route.name == 'Logs');
+      .find(route => route.name === 'Logs');
   }
 }

@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Routes, ROUTER_DIRECTIVES } from '@angular/router';
-import { DetailsComponent } from './shared/+details/details.component';
-import { LogService } from '../shared/';
-import { ListComponent } from './shared/+list/list.component';
+import { Component } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router';
+import { LogService } from '../shared/services/log/log.service';
 
 @Component({
   moduleId: module.id,
@@ -12,15 +10,8 @@ import { ListComponent } from './shared/+list/list.component';
   directives: [ROUTER_DIRECTIVES],
   providers: [LogService]
 })
-@Routes([
-  {path: '/', component: ListComponent},
-  {path: '/details', component: DetailsComponent}
-])
-export class LogsComponent implements OnInit {
+export class LogsComponent {
 
   constructor() {
-  }
-
-  public ngOnInit() {
   }
 }

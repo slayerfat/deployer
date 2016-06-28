@@ -3,7 +3,7 @@ import { config } from '../config/config';
 export default (mongoose) => {
   let url: string;
 
-  if (config.env == 'development') {
+  if (config.env === 'development') {
     url = config.mongo.development;
   } else {
     url = config.mongo.production;
