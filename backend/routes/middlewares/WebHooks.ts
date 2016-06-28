@@ -30,7 +30,7 @@ export class WebHooks {
     this.data.headers = req.headers;
 
     // we need to check the agent for bitBucket.
-    if (req.get('User-Agent') == 'Bitbucket-Webhooks/2.0') {
+    if (req.get('User-Agent') === 'Bitbucket-Webhooks/2.0') {
       if (this.isValidBitBucketRequest()) {
         return next();
       }
@@ -62,7 +62,7 @@ export class WebHooks {
    * @returns {boolean}
    */
   private isValidBitBucketRequest() {
-    if (this.request.get('X-Event-Key') == 'repo:push') {
+    if (this.request.get('X-Event-Key') === 'repo:push') {
       return true;
     }
 
@@ -77,7 +77,7 @@ export class WebHooks {
    * @returns {boolean}
    */
   private isValidGitHubMasterRequest() {
-    if (this.request.get('X-GitHub-Event') == 'push') {
+    if (this.request.get('X-GitHub-Event') === 'push') {
       const payload = this.request.body;
 
       if (!payload) {
@@ -86,7 +86,7 @@ export class WebHooks {
         return false;
       }
 
-      if (payload.ref == 'refs/heads/master') {
+      if (payload.ref === 'refs/heads/master') {
         return true;
       }
 

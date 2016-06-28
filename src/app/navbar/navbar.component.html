@@ -11,7 +11,7 @@
         </button>
         <a class="navbar-brand"
            [title]="homeLink.shortDesc"
-           [routerLink]="homeLink.path">
+           [routerLink]="[homeLink.path]">
           {{ homeLink.title }}
         </a>
       </div>
@@ -19,7 +19,7 @@
       <ul class="nav navbar-nav">
         <li>
           <a [title]="logsLink.shortDesc"
-             [routerLink]="logsLink.path">
+             [routerLink]="[logsLink.path]">
             {{ logsLink.title }}
           </a>
         </li>
@@ -28,7 +28,7 @@
       <div class="collapse navbar-collapse" id="navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <a [routerLink]="loginLink.path" [title]="loginLink.shortDesc">
+            <a [routerLink]="[loginLink.path]" [title]="loginLink.shortDesc">
               {{ loginLink.title }}
             </a>
           </li>

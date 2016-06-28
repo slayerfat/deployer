@@ -1,2 +1,3 @@
 export * from './environment';
-export * from './deployer.component';
+export * from './app.component';
+export * from './app.routes';

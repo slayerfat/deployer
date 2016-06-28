@@ -4,6 +4,6 @@ export class DeployerPage {
   }
 
   getParagraphText() {
-    return element(by.css('deployer-app h1')).getText();
+    return element(by.css('app-root h1')).getText();
   }
 }

@@ -9,7 +9,7 @@ export default function loginRoute(app, router) {
     const message = {success: false, message: 'Authentication failed.'};
 
     User.findOne({name: req.body.name}).exec().then((user: UserModelInterface) => {
-      if (!user || user.password != req.body.password) {
+      if (!user || user.password !== req.body.password) {
         return Promise.resolve(res.json(message));
       }
 

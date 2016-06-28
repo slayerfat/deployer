@@ -9,13 +9,13 @@ export class AppRoutesService {
     {
       title: 'Login',
       name: 'Login',
-      path: '/login',
+      path: 'login',
       shortDesc: 'Login!'
     },
     {
       title: 'Logs',
       name: 'Logs',
-      path: '/logs',
+      path: 'logs',
       shortDesc: 'See the system logs.'
     }
   ];
@@ -24,7 +24,7 @@ export class AppRoutesService {
     let home = {
       title: this.appStrings.brand,
       name: this.appStrings.brand,
-      path: '/',
+      path: '',
       shortDesc: this.appStrings.shortDesc
     };
     this.routes.push(home);
