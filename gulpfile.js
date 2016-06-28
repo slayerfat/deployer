@@ -56,7 +56,7 @@ gulp.task('ts:lint', function () {
 });
 
 gulp.task('ts:lint:watch', ['ts:lint'], function () {
-  gulp.watch([paths.backend.watchList, paths.frontend.watchList], ['ts:lint']);
+  gulp.watch([paths.backend.watchList], ['ts:lint']);
 });
 
 gulp.task('server', function () {
