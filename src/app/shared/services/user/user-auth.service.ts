@@ -4,23 +4,22 @@ import { Observable } from 'rxjs/Rx';
 import { LoginResponse } from '../../interfaces/server/LoginResponse';
 import 'rxjs/add/operator/map';
 import { environment } from '../../../environment';
+import { BackendHttpService } from '../misc/backend-http.service';
 
 @Injectable()
-export class UserAuthService {
+export class UserAuthService extends BackendHttpService {
   private loggedIn = false;
 
-  constructor(private http: Http) {
+  constructor(http: Http) {
+    super(http);
     this.loggedIn = !!localStorage.getItem('auth_token');
   }
 
   public login(name, password): Observable<Response> {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
     return this.http.post(
       environment.endpoints.login,
       JSON.stringify({name, password}),
-      {headers}
+      {headers: this.headers}
     ).map((res: LoginResponse) => res.json())
       .map((res: LoginResponse) => {
         if (res.success) {
@@ -39,15 +38,5 @@ export class UserAuthService {
 
   public isLoggedIn() {
     return this.loggedIn;
-  }
-
-  // TODO improve error handler
-  private handleError(error: any) {
-    // In a real world app, we might use a remote logging infrastructure
-    // We'd also dig deeper into the error to get a better message
-    let errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg); // log to console instead
-    return Observable.throw(errMsg);
   }
 }

@@ -3,7 +3,11 @@ export * from './components/form-error';
 export * from './components/default-table';
 export * from './services/user/user-auth.service';
 export * from './services/log/log.service';
+export * from './services/interfaces/Gettable';
+export * from './services/interfaces/Settable';
+export * from './services/interfaces/Sluggable';
 export * from './interfaces'
 export * from './services/misc/app-routes.service';
 export * from './services/misc/AppRoute';
 export * from './services/misc/app-strings.service';
+export * from './services/misc/backend-http.service';
