@@ -16,6 +16,14 @@ export default function targetRoute(app, router) {
     });
   });
 
+  router.post('/logs/find', (req: Request, res: Response) => {
+    logRepo.getOne(req.body.id).then(log => {
+      return res.json(log);
+    }, err => {
+      return res.status(400).json({err: err});
+    });
+  });
+
   router.post('/logs', (req: Request, res: Response) => {
     logRepo.store({
       target: req.body.target,

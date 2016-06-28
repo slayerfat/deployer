@@ -22,8 +22,19 @@ export class LogRepository implements Gettable, Settable {
   }
 
   public getOne(id: mongoose.Types.ObjectId): Promise<LogModelInterface> {
-    // TODO implement
-    return undefined;
+    return new Promise((resolve, reject) => {
+      Log.findOne({_id: id}).exec().then((target: LogModelInterface) => {
+        if (target) {
+          return resolve(target);
+        }
+
+        return reject();
+      }, err => {
+        console.log(err);
+
+        return reject(err);
+      });
+    });
   }
 
   public store(data: Object): Promise<LogModelInterface> {
