@@ -33,8 +33,9 @@ export class ListComponent implements OnInit {
   public constructor(private logService: LogService, private router: Router) {
   }
 
+  // noinspection JSUnusedGlobalSymbols
   public ngOnInit(): void {
-    this.logService.index().subscribe((results: any) => {
+    this.logService.getAll().subscribe((results: any) => {
       this.data = results;
       this.length = this.data.length;
     });
@@ -46,8 +47,6 @@ export class ListComponent implements OnInit {
    * @param {NgCellClickData} data
    */
   public sendToDetails(data: NgCellClickData<{_id: any}>) {
-    console.log(data);
-    // TODO waiting on router
-    // this.router.navigate(['/details', data.row._id]);
+    this.router.navigate(['/logs', data.row._id]);
   }
 }
