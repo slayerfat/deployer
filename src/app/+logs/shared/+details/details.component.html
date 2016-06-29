@@ -1,6 +1,54 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf="log">
+      <h1>Log {{ log._id }}</h1>
+      <h1>
+        <i class="fa"
+           [ngClass]="setStatusIconClasses()"
+           style="margin-right: .5rem"></i>
+        {{ log.ip }}
+        <small [class]="log.iteration >=4 ? 'text-danger' : 'text-success'">
+          <i class="fa fa-refresh"></i> {{ log.iteration }}
+        </small>
+      </h1>
+
+      <p>
+        Created {{ log.createdAt | humanDiff }}
+      </p>
+
+      <p>
+        Updated {{ log.updatedAt | humanDiff }}
+      </p>
+
+      <hr>
+
+      <tabset>
+        <tab *ngFor="let result of log.results" class="more-padding">
+          <template tabHeading>
+            <span>
+              <i class="fa" [ngClass]="setStatusIconClasses(result.success)"></i>
+            </span>
+          </template>
+          <p *ngIf="result.command">{{ result.command }}</p>
+          <p *ngIf="result.args">args: {{ result.args }}</p>
+          <p *ngIf="result.time"><i class="fa fa-clock-o"></i> {{ result.time }}</p>
+          <p *ngIf="result.stdOut">
+            <span *ngFor="let out of result.stdOut.split('\n')">
+              {{ out }} <br>
+            </span>
+          </p>
+          <p *ngIf="result.stdErr">
+            <span class="text-danger" *ngFor="let out of result.stdErr.split('\n')">
+              {{ out }} <br>
+            </span>
+          </p>
+          <p *ngIf="result.target">Target: {{ result.target }}</p>
+          <p *ngIf="result.message">{{ result.message }}</p>
+        </tab>
+      </tabset>
+
+      <hr>
+
       <pre><code>{{ log | json }}</code></pre>
     </div>
   </div>
