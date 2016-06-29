@@ -23,6 +23,13 @@
             {{ logsLink.title }}
           </a>
         </li>
+
+        <li>
+          <a [title]="targetsLink.shortDesc"
+             [routerLink]="[targetsLink.path]">
+            {{ targetsLink.title }}
+          </a>
+        </li>
       </ul>
 
       <div class="collapse navbar-collapse" id="navbar-collapse">

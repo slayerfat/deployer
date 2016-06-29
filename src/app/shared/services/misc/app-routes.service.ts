@@ -17,6 +17,12 @@ export class AppRoutesService {
       name: 'Logs',
       path: 'logs',
       shortDesc: 'See the system logs.'
+    },
+    {
+      title: 'Targets',
+      name: 'Targets',
+      path: 'targets',
+      shortDesc: 'See the system targets.'
     }
   ];
 

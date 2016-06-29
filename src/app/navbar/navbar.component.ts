@@ -15,6 +15,7 @@ export class NavbarComponent {
   public homeLink: AppRoute;
   public loginLink: AppRoute;
   public logsLink: AppRoute;
+  public targetsLink: AppRoute;
 
   constructor(public appStrings: AppStringsService, public appRoutes: AppRoutesService) {
     this.homeLink = this.appRoutes.getRoutes()
@@ -25,6 +26,9 @@ export class NavbarComponent {
 
     this.logsLink = this.appRoutes.getRoutes()
       .find(route => route.name === 'Logs');
+
+    this.targetsLink = this.appRoutes.getRoutes()
+      .find(route => route.name === 'Targets');
   }
 
   public setNormalFonts() {
