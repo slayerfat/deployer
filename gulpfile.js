@@ -10,7 +10,7 @@ var proxy = require('http-proxy-middleware');
 
 // tasks
 try {
-  require('./dist/config/gulp/seeds')(gulp);
+  require('./dist-backend/config/gulp/seeds')(gulp);
 } catch (e) {
   console.log(e.message);
 }
