@@ -11,3 +11,4 @@ export * from './services/misc/app-routes.service';
 export * from './services/misc/AppRoute';
 export * from './services/misc/app-strings.service';
 export * from './services/misc/backend-http.service';
+export * from './pipes/human-diff.pipe';
