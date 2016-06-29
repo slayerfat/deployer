@@ -9,7 +9,7 @@ export class WebHooks {
   private data: LogInterface = {
     ip: '',
     headers: {},
-    status: '',
+    status: false,
     iteration: 0
   };
 
@@ -50,7 +50,8 @@ export class WebHooks {
     }
 
     // we don't know who is doing the request.
-    this.data.status = this.data.status || WebHooks.FORBIDDEN;
+    this.data.status = false;
+    this.data.results = [{message: WebHooks.FORBIDDEN}];
 
     let log = new Log(this.data);
     return log.save().then(() => res.json(WebHooks.FORBIDDEN));
@@ -61,14 +62,14 @@ export class WebHooks {
    *
    * @returns {boolean}
    */
-  private isValidBitBucketRequest() {
+  private isValidBitBucketRequest(): boolean {
     if (this.request.get('X-Event-Key') === 'repo:push') {
-      return true;
+      return this.data.status = true;
     }
 
-    this.data.status = 'Rejected: not a push event.';
+    this.data.results = [{message: 'Rejected: not a push event.'}];
 
-    return false;
+    return this.data.status = false;
   }
 
   /**
@@ -76,27 +77,27 @@ export class WebHooks {
    *
    * @returns {boolean}
    */
-  private isValidGitHubMasterRequest() {
+  private isValidGitHubMasterRequest(): boolean {
     if (this.request.get('X-GitHub-Event') === 'push') {
       const payload = this.request.body;
 
       if (!payload) {
-        this.data.status = 'Rejected: no payload.';
+        this.data.results = [{message: 'Rejected: no payload.'}];
 
-        return false;
+        return this.data.status = false;
       }
 
       if (payload.ref === 'refs/heads/master') {
-        return true;
+        return this.data.status = true;
       }
 
-      this.data.status = 'Rejected: not master branch.';
+      this.data.results = [{message: 'Rejected: not master branch.'}];
 
-      return false;
+      return this.data.status = false;
     }
 
-    this.data.status = 'Rejected: not a push event.';
+    this.data.results = [{message: 'Rejected: not a push event.'}];
 
-    return false;
+    return this.data.status = false;
   }
 }

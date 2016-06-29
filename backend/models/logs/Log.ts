@@ -21,7 +21,7 @@ let logSchema: mongoose.Schema = new mongoose.Schema({
     max: 1000
   },
   status: {
-    type: Object,
+    type: Boolean,
     required: true,
     trim: true,
     max: 100

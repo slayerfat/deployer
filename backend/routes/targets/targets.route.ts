@@ -51,7 +51,7 @@ export default function targetRoute(app, router) {
       let data: LogInterface = {
         ip: req.connection.remoteAddress,
         headers: req.headers,
-        status: '',
+        status: false,
         iteration: 0
       };
 
