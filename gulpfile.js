@@ -16,6 +16,7 @@ try {
 }
 
 const paths = {
+  fontAwesome: './node_modules/font-awesome/',
   backend: {
     entry: ['dist-backend/backend/server.js'],
     files: ['dist-backend/**/*.{html,htm,css,js}'],
@@ -73,6 +74,11 @@ gulp.task('server', function () {
   gulp.watch(paths.backend.entry, function () {
     server.start.bind(server)()
   });
+});
+
+gulp.task('copy', function () {
+  gulp.src(paths.fontAwesome + 'fonts/**')
+    .pipe(gulp.dest('./public/fonts/'));
 });
 
 gulp.task('default', function () {

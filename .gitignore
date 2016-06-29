@@ -1,16 +1,17 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
-/tmp
-/dist-backend
+dist/
+tmp/
+dist-backend/
+public/fonts/
 
 # dependencies
-/node_modules
-/bower_components
+node_modules/
+bower_components/
 
 # IDEs and editors
-/.idea
+.idea/
 .project
 .classpath
 *.launch
@@ -23,10 +24,10 @@
 /libpeerconnection.log
 npm-debug.log
 testem.log
-/typings
-/config/config.ts
-/config/environment.dev.ts
-/config/environment.prod.ts
+typings/
+config/config.ts
+config/environment.dev.ts
+config/environment.prod.ts
 
 # e2e
 /e2e/*.js
