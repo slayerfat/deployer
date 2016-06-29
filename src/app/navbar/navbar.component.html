@@ -28,6 +28,16 @@
       <div class="collapse navbar-collapse" id="navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
           <li>
+            <a (click)="setNormalFonts()" [attr.title]="appStrings.navbar.fonts.normal">
+              <i class="fa fa-font"></i>
+            </a>
+          </li>
+          <li>
+            <a (click)="setLargeFonts()" [attr.title]="appStrings.navbar.fonts.large">
+              <i class="fa fa-low-vision"></i>
+            </a>
+          </li>
+          <li>
             <a [routerLink]="[loginLink.path]" [title]="loginLink.shortDesc">
               {{ loginLink.title }}
             </a>

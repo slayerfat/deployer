@@ -26,4 +26,14 @@ export class NavbarComponent {
     this.logsLink = this.appRoutes.getRoutes()
       .find(route => route.name === 'Logs');
   }
+
+  public setNormalFonts() {
+    // TODO set fonts to normal
+    console.log('normal fonts to be set');
+  }
+
+  public setLargeFonts() {
+    // TODO set fonts to large
+    console.log('large fonts to be set');
+  }
 }

@@ -5,6 +5,12 @@ export class AppStringsService {
   public brand = 'Deployer';
   public shortDesc = 'Deployer, it just works!';
   public repoUrl = 'https://github.com/slayerfat/deployer';
+  public navbar = {
+    fonts: {
+      normal: 'Set fonts to normal size',
+      large: 'Set fonts to large size'
+    }
+  };
   public authors = [
     {
       fullName: 'Alejandro Granadillo',
