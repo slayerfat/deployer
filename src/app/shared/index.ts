@@ -3,6 +3,7 @@ export * from './components/form-error';
 export * from './components/default-table';
 export * from './services/user/user-auth.service';
 export * from './services/log/log.service';
+export * from './services/target/target.service';
 export * from './services/interfaces/Gettable';
 export * from './services/interfaces/Settable';
 export * from './services/interfaces/Sluggable';
