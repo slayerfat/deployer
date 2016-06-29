@@ -44,16 +44,21 @@ const barrels: string[] = [
 
   // App specific barrels.
   'app',
-  'app/shared',
+  'app/navbar',
+  'app/footer',
+  'app/+home',
   'app/+login',
   'app/+dashboard',
-  'app/navbar',
-  'app/+home',
-  'app/footer',
-  'app/shared/components/form-error',
   'app/+logs',
+  'app/+logs/shared',
   'app/+logs/shared/+details',
   'app/+logs/shared/+list',
+  'app/+targets',
+  'app/+targets/shared',
+  'app/+targets/shared/+targets-list',
+  'app/+targets/shared/+targets-details',
+  'app/shared',
+  'app/shared/components/form-error',
   'app/shared/components/default-table',
   /** @cli-barrel */
 ];

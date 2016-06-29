@@ -27,7 +27,7 @@
     "backend/models/shared/interfaces/UserControlInterface.ts",
     "backend/models/targets/NodeCommands.ts",
     "backend/models/targets/Target.ts",
-    "backend/models/targets/TargetlInterface.ts",
+    "backend/models/targets/TargetInterface.ts",
     "backend/models/targets/TargetModelInterface.ts",
     "backend/models/users/User.ts",
     "backend/models/users/UserInterface.ts",
