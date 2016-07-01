@@ -6,6 +6,7 @@ import { Settable } from './interfaces/Settable';
 import { Sluggable } from './interfaces/Sluggable';
 import { UserRepository } from './UserRepository';
 
+// TODO check if extends bug fails again
 export class TargetRepository implements Gettable, Settable, Sluggable {
   public getAll(): Promise<TargetModelInterface[]> {
     return new Promise((resolve, reject) => {
@@ -24,25 +25,11 @@ export class TargetRepository implements Gettable, Settable, Sluggable {
   }
 
   public getOne(id: mongoose.Types.ObjectId): Promise<TargetModelInterface> {
-    // TODO
-    return undefined;
+    return this.getBy({_id: id});
   }
 
   public getBySlug(slug: String): Promise<TargetModelInterface> {
-    return new Promise((resolve, reject) => {
-      Target.findOne({slug: slug}).exec().then(target => {
-        if (target) {
-          return resolve(target);
-        }
-
-        return reject({message: 'no target found'});
-      }, err => {
-        // TODO: use morgan or similar to make log files
-        console.log(err);
-
-        return reject(err);
-      });
-    });
+    return this.getBy({slug: slug});
   }
 
   public store(data: {name: string, commands: string}): Promise<TargetModelInterface> {
@@ -67,5 +54,22 @@ export class TargetRepository implements Gettable, Settable, Sluggable {
   public update(id: mongoose.Types.ObjectId): Promise<TargetModelInterface> {
     // TODO
     return undefined;
+  }
+
+  private getBy(options: {}): Promise<TargetModelInterface> {
+    return new Promise((resolve, reject) => {
+      Target.findOne(options).exec().then(target => {
+        if (target) {
+          return resolve(target);
+        }
+
+        return reject({message: 'no target found'});
+      }, err => {
+        // TODO: use morgan or similar to make log files
+        console.log(err);
+
+        return reject(err);
+      });
+    });
   }
 }
