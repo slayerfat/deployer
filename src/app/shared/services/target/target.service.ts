@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Gettable } from '../interfaces/Gettable';
+import { Sluggable } from '../interfaces/Sluggable';
 import { TargetInterface } from '../../interfaces/models/TargetInterface';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
@@ -8,8 +9,7 @@ import { environment } from '../../../environment';
 import { BackendHttpService } from '../misc/backend-http.service';
 
 @Injectable()
-export class TargetService extends BackendHttpService implements Gettable<TargetInterface> {
-
+export class TargetService extends BackendHttpService implements Gettable<TargetInterface>, Sluggable<TargetInterface> {
   constructor(http: Http) {
     super(http);
   }
@@ -24,6 +24,14 @@ export class TargetService extends BackendHttpService implements Gettable<Target
     return this.http.post(
       `${environment.endpoints.targets}/find`,
       {id: id},
+      {headers: this.headers}
+    ).map((res) => res.json()).catch(this.handleError);
+  }
+
+  public getBySlug(slug: String): Observable<TargetInterface> {
+    return this.http.post(
+      `${environment.endpoints.targets}/find/slug`,
+      {slug: slug},
       {headers: this.headers}
     ).map((res) => res.json()).catch(this.handleError);
   }

@@ -22,8 +22,7 @@ import {
 })
 export class TargetsListComponent implements OnInit {
   public columns: Array<ColumnsInterface> = [
-    {title: 'Ip', name: 'ip', sort: 'asc'},
-    {title: 'Status', name: 'status'},
+    {title: 'Name', name: 'name', sort: 'asc'},
     {title: 'Created at', name: 'createdAt'},
     {title: 'Updated at', name: 'updatedAt', sort: 'asc'},
   ];
@@ -46,7 +45,7 @@ export class TargetsListComponent implements OnInit {
    *
    * @param {NgCellClickData} data
    */
-  public sendToDetails(data: NgCellClickData<{_id: any}>) {
-    this.router.navigate(['/targets', data.row._id]);
+  public sendToDetails(data: NgCellClickData<{slug: any}>) {
+    this.router.navigate(['/targets', data.row.slug]);
   }
 }
