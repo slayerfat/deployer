@@ -115,4 +115,12 @@ export default function targetRoute(app, router) {
         console.log(err);
       });
     });
+
+  router.post('/targets/find', (req: Request, res: Response) => {
+    targetRepo.getBySlug(req.body.slug).then(target => {
+      return res.json(target);
+    }, err => {
+      return res.status(400).json({err: err});
+    });
+  });
 }
