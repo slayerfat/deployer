@@ -1,9 +1,10 @@
-import { Request, Response } from 'express';
 import { TargetRepository } from '../../repositories/TargetRepository';
+import { JsonErrorResponse } from '../interfaces/JsonErrorResponse';
 import { LogRepository } from '../../repositories/LogRepository';
 import { LogInterface } from '../../models/logs/LogInterface';
 import { ExecService } from '../../services/ExecService';
 import { WebHooks } from '../middlewares/WebHooks';
+import { Request, Response } from 'express';
 
 // TODO: jwt
 // import * as jwt from 'jsonwebtoken';
@@ -14,6 +15,7 @@ export default function targetRoute(app, router) {
   const logRepo = new LogRepository();
   const exec = new ExecService();
   const webHook = new WebHooks();
+  let msg: JsonErrorResponse;
 
   /**
    * Gets a list of elements.
@@ -22,7 +24,8 @@ export default function targetRoute(app, router) {
     targetRepo.getAll().then(targets => {
       return res.json(targets);
     }, err => {
-      return res.status(400).json({err: err});
+      msg = {message: err.message};
+      return res.status(400).json(msg);
     });
   });
 
@@ -36,7 +39,8 @@ export default function targetRoute(app, router) {
     }).then(target => {
       return res.json(target);
     }, err => {
-      return res.status(400).json({err: err});
+      msg = {message: err.message};
+      return res.status(400).json(msg);
     });
   });
 
@@ -70,11 +74,12 @@ export default function targetRoute(app, router) {
             res.json({success: false, message: message.message, target: message.target});
           }, err => {
             console.log(err);
-
-            res.status(500).json({
+            msg = {
               success: false,
               message: 'Unknown server error, cant save new Log.'
-            });
+            };
+
+            res.status(500).json(msg);
           });
         }
 
@@ -112,7 +117,7 @@ export default function targetRoute(app, router) {
         return iterate();
       }).catch(err => {
         // TODO: morgan
-        console.log(err);
+        console.log(err.message);
       });
     });
 
@@ -120,7 +125,8 @@ export default function targetRoute(app, router) {
     targetRepo.getBySlug(req.body.slug).then(target => {
       return res.json(target);
     }, err => {
-      return res.status(400).json({err: err});
+      msg = {message: err.message};
+      return res.status(400).json(msg);
     });
   });
 }

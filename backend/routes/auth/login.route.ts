@@ -3,10 +3,11 @@ import User from '../../models/users/User';
 import * as jwt from 'jsonwebtoken';
 import { Comprobable } from '../../../src/app/shared/interfaces';
 import { UserModelInterface } from '../../models/users/UserModelInterface';
+import { JsonErrorResponse } from '../interfaces/JsonErrorResponse';
 
 export default function loginRoute(app, router) {
   router.post('/login', function (req: Request, res: Response) {
-    const message = {success: false, message: 'Authentication failed.'};
+    const message: JsonErrorResponse = {success: false, message: 'Authentication failed.'};
 
     User.findOne({name: req.body.name}).exec().then((user: UserModelInterface) => {
       if (!user || user.password !== req.body.password) {

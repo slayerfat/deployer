@@ -31,7 +31,11 @@ export class TargetRepository implements Gettable, Settable, Sluggable {
   public getBySlug(slug: String): Promise<TargetModelInterface> {
     return new Promise((resolve, reject) => {
       Target.findOne({slug: slug}).exec().then(target => {
-        return resolve(target);
+        if (target) {
+          return resolve(target);
+        }
+
+        return reject({message: 'no target found'});
       }, err => {
         // TODO: use morgan or similar to make log files
         console.log(err);

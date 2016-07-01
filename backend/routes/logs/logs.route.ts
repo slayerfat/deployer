@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { LogRepository } from '../../repositories/LogRepository';
+import { JsonErrorResponse } from '../interfaces/JsonErrorResponse';
 
 // TODO: jwt
 // import * as jwt from 'jsonwebtoken';
@@ -7,12 +8,14 @@ import { LogRepository } from '../../repositories/LogRepository';
 export default function targetRoute(app, router) {
   // TODO: IOC
   const logRepo = new LogRepository();
+  let msg: JsonErrorResponse;
 
   router.get('/logs', (req: Request, res: Response) => {
     logRepo.getAll().then(logs => {
       return res.json(logs);
     }, err => {
-      return res.status(400).json({err: err});
+      msg = {message: err.message};
+      return res.status(400).json(msg);
     });
   });
 
@@ -20,7 +23,8 @@ export default function targetRoute(app, router) {
     logRepo.getOne(req.body.id).then(log => {
       return res.json(log);
     }, err => {
-      return res.status(400).json({err: err});
+      msg = {message: err.message};
+      return res.status(400).json(msg);
     });
   });
 
@@ -36,7 +40,8 @@ export default function targetRoute(app, router) {
     }).then(log => {
       return res.json({success: true, log: log});
     }, err => {
-      return res.status(400).json({err: err});
+      msg = {message: err.message};
+      return res.status(400).json(msg);
     });
   });
 }

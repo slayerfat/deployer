@@ -40,6 +40,7 @@
     "backend/repositories/UserRepository.ts",
     "backend/routes/auth/login.route.ts",
     "backend/routes/frontend.ts",
+    "backend/routes/interfaces/JsonErrorResponse.ts",
     "backend/routes/logs/logs.route.ts",
     "backend/routes/middlewares/WebHooks.ts",
     "backend/routes/targets/targets.route.ts",

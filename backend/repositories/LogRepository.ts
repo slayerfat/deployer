@@ -28,7 +28,7 @@ export class LogRepository implements Gettable, Settable {
           return resolve(target);
         }
 
-        return reject();
+        return reject({message: 'User not found.'});
       }, err => {
         console.log(err);
 
