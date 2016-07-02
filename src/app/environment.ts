@@ -11,6 +11,6 @@ export const environment = {
   },
   rollbar: {
     secret: '',
-    environment: 'development'
+    environment: 'development - frontend'
   }
 };
