@@ -1,0 +1,24 @@
+{
+  "name": "deployer",
+  "authors": [
+    "Alejandro Granadillo <slayerfat@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/slayerfat/deployer",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public",
+    "test",
+    "tests",
+    "tmp",
+    "typings",
+    "dist",
+    "dist-backend"
+  ],
+  "dependencies": {
+    "rollbar": "^1.9.1"
+  }
+}

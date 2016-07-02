@@ -4,3 +4,12 @@
 
 /// <reference path="../typings/browser.d.ts" />
 // declare var module: { id: string };
+declare const Rollbar: {
+  init(options: any);
+  critical(message: string, err: Object);
+  error(message: string, err: Object);
+  warning(message: string, err: Object);
+  info(message: string, err: Object);
+  debug(message: string, err: Object);
+  log(message: string, err: Object);
+};

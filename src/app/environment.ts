@@ -8,5 +8,9 @@ export const environment = {
     login: '',
     logs: '',
     targets: ''
+  },
+  rollbar: {
+    secret: '',
+    environment: 'development'
   }
 };
