@@ -26,6 +26,7 @@ export default {
   },
   rollbar: {
     secret: '',
+    serverSecret: '',
     environment: 'production - {front|back}end'
   }
 };
