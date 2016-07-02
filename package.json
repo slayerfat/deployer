@@ -6,8 +6,9 @@
   "scripts": {
     "serve": "npm run ng:serve & npm run gulp:default",
     "gulp:default": "gulp",
-    "gulp:ts:watch": "gulp ts:compile:watch",
-    "gulp:ts:lint": "gulp ts:lint:watch",
+    "gulp:ts:compile": "gulp ts:compile",
+    "gulp:ts:compile:watch": "gulp ts:compile:watch",
+    "gulp:ts:lint:watch": "gulp ts:lint:watch",
     "gulp:server": "gulp server",
     "ng:serve": "ng serve",
     "ng:build": "ng build",
@@ -48,6 +49,7 @@
     "ng2-table": "https://github.com/slayerfat/ng2-table/tarball/bb7f316",
     "node-sass": "^3.8.0",
     "reflect-metadata": "0.1.3",
+    "rollbar": "^0.6.2",
     "run-sequence": "^1.2.1",
     "rxjs": "5.0.0-beta.6",
     "systemjs": "0.19.26",
@@ -56,6 +58,7 @@
   },
   "devDependencies": {
     "angular-cli": "1.0.0-beta.8",
+    "bower": "^1.7.9",
     "codelyzer": "0.0.20",
     "ember-cli-inject-live-reload": "1.4.0",
     "gulp-tslint": "^5.0.0",

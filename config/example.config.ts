@@ -23,5 +23,10 @@ export default {
     login: url + '/api/login',
     logs: url + '/api/logs',
     targets: url + '/api/targets'
+  },
+  rollbar: {
+    secret: '',
+    serverSecret: '',
+    environment: 'production - {front|back}end'
   }
 };

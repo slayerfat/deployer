@@ -19,6 +19,9 @@
 <script src="{{.}}"></script>
 {{/each}}
 <script>
+  // needed for Rollbar (check resources/ts/rollbar.ts)
+  var _rollbarConfig, Rollbar;
+
   System.import('system-config.js').then(function () {
     System.import('main');
   }).catch(console.error.bind(console));

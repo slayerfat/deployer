@@ -5,6 +5,7 @@ dist/
 tmp/
 dist-backend/
 public/fonts/
+public/vendor/
 
 # dependencies
 node_modules/

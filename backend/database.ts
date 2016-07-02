@@ -14,6 +14,10 @@ export default (mongoose) => {
 
   mongoose.connect(url, (error) => {
     if (error) {
+      const conRef = 'connect ECONNREFUSED 127.0.0.1:27017';
+      if (config.env === 'development' && error.message === conRef) {
+        return console.log(error);
+      }
       throw error;
     }
   });
