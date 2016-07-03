@@ -9,6 +9,7 @@ import loginRoute from './routes/auth/login.route';
 import targetRoute from './routes/targets/targets.route';
 import logRoute from './routes/logs/logs.route';
 import frontEndRoutes from './routes/frontend';
+import { accessLogStream } from './services/morganFileStream';
 let rollbar = require('rollbar');
 
 // TODO: IOC
@@ -41,6 +42,9 @@ if (config.env === 'development') {
   // noinspection TypeScriptValidateTypes
   app.use(morgan('dev'));
 }
+
+// noinspection TypeScriptValidateTypes
+app.use(morgan('combined', {stream: accessLogStream}));
 
 // backend routes
 if (config.env === 'production') {

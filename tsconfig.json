@@ -48,6 +48,7 @@
     "backend/services/AppService.ts",
     "backend/services/ExecService.ts",
     "backend/services/interfaces/Rollbar.ts",
+    "backend/services/morganFileStream.ts",
     "backend/services/reporter/index.ts",
     "backend/services/reporter/interfaces/Reportable.ts",
     "backend/services/reporter/Reporter.ts",
