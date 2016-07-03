@@ -1,6 +1,7 @@
 export interface Rollbar {
   init(token: string, options: RollbarOptions);
   reportMessage(message: string, severity?: string, request?: Object, callback?: Function);
+  handleError(e, request?: Object, callback?: Function);
 }
 
 export interface RollbarOptions {

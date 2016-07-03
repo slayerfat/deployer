@@ -15,4 +15,15 @@ export class Reporter {
   public log(message: string, severity?: string, request?: Object, callback?: Function) {
     this.service.log(message, severity, request, callback);
   }
+
+  /**
+   * Lets the service handle the error, with optional request and callback.
+   *
+   * @param {Error} e
+   * @param {Object} request
+   * @param {Function} callback
+   */
+  public handleError(e, request?: Object, callback?: Function) {
+    this.service.handleError(e, request, callback);
+  }
 }

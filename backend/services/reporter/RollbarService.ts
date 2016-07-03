@@ -2,7 +2,6 @@ import { Reportable } from './interfaces/Reportable';
 import { Rollbar, RollbarOptions } from '../interfaces/Rollbar';
 
 export class RollbarService implements Reportable {
-
   private service: Rollbar;
 
   /**
@@ -18,5 +17,9 @@ export class RollbarService implements Reportable {
 
   public log(message: string, severity: string) {
     this.service.reportMessage(message, severity);
+  }
+
+  public handleError(e, request?: Object, callback?: Function) {
+    this.service.handleError(e, request, callback);
   }
 }
