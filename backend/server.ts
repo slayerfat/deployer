@@ -10,6 +10,7 @@ import targetRoute from './routes/targets/targets.route';
 import logRoute from './routes/logs/logs.route';
 import frontEndRoutes from './routes/frontend';
 import { accessLogStream } from './services/morganFileStream';
+import { winston } from './services/winston';
 let rollbar = require('rollbar');
 
 // TODO: IOC
@@ -62,5 +63,5 @@ app.use('/api', router);
 app.use(rollbar.errorHandler(config.rollbar.serverSecret, {environment: config.rollbar.environment}));
 
 app.listen(port, function () {
-  console.log(`The backend is serving on port ${port}.`);
+  winston.log('info', `The backend is serving on port ${port}.`);
 });

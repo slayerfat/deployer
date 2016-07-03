@@ -55,6 +55,8 @@
     "rxjs": "5.0.0-beta.6",
     "systemjs": "0.19.26",
     "tsconfig-glob": "^0.4.3",
+    "winston": "^2.2.0",
+    "winston-daily-rotate-file": "^1.1.4",
     "zone.js": "0.6.12"
   },
   "devDependencies": {
