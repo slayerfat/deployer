@@ -60,29 +60,6 @@ export default function targetRoute(app, router) {
       };
 
       targetRepo.getBySlug(slug).then(target => {
-        if (!target) {
-          data.status = false;
-          let message = {
-            message: 'Target not found',
-            target: slug
-          };
-          data.results = [message];
-
-          // if no target is found, then we just
-          // respond with the status already made
-          return logRepo.store(data).then(() => {
-            res.json({success: false, message: message.message, target: message.target});
-          }, err => {
-            console.log(err);
-            msg = {
-              success: false,
-              message: 'Unknown server error, cant save new Log.'
-            };
-
-            res.status(500).json(msg);
-          });
-        }
-
         // if there is a target, we just respond success
         data.target = target._id;
         res.json({success: true});
@@ -115,9 +92,29 @@ export default function targetRoute(app, router) {
         };
 
         return iterate();
-      }).catch(err => {
+      }).catch(error => {
         // TODO: morgan
-        console.log(err.message);
+        console.error(error.message);
+        data.status = false;
+        let message = {
+          message: error.message,
+          target: slug
+        };
+        data.results = [message];
+
+        // if no target is found, then we just
+        // respond with the status already made
+        return logRepo.store(data).then(() => {
+          res.json({success: false, message: message.message, target: message.target});
+        }, err => {
+          console.log(err);
+          msg = {
+            success: false,
+            message: 'Unknown server error, cant save new Log.'
+          };
+
+          res.status(500).json(msg);
+        });
       });
     });
 
