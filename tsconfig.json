@@ -47,6 +47,12 @@
     "backend/server.ts",
     "backend/services/AppService.ts",
     "backend/services/ExecService.ts",
+    "backend/services/interfaces/Rollbar.ts",
+    "backend/services/reporter/index.ts",
+    "backend/services/reporter/interfaces/Reportable.ts",
+    "backend/services/reporter/Reporter.ts",
+    "backend/services/reporter/RollbarService.ts",
+    "backend/services/reporter/singleton.ts",
     "config/config.ts",
     "config/gulp/seeds.ts",
     "config/example.config.ts"

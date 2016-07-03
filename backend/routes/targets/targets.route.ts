@@ -5,6 +5,7 @@ import { LogInterface } from '../../models/logs/LogInterface';
 import { ExecService } from '../../services/ExecService';
 import { WebHooks } from '../middlewares/WebHooks';
 import { Request, Response } from 'express';
+declare let rollbar: any;
 
 // TODO: jwt
 // import * as jwt from 'jsonwebtoken';
