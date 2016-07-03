@@ -5,6 +5,7 @@ import { Comprobable } from '../../../src/app/shared/interfaces';
 import { UserModelInterface } from '../../models/users/UserModelInterface';
 import { JsonErrorResponse } from '../interfaces/JsonErrorResponse';
 import { reporter } from '../../services/reporter/singleton';
+import { winston } from '../../services/winston';
 
 export default function loginRoute(app, router) {
   router.post('/login', function (req: Request, res: Response) {
@@ -27,7 +28,7 @@ export default function loginRoute(app, router) {
       // returns the token with a success message
       return Promise.resolve(res.json(response));
     }, err => {
-      // TODO: morgan
+      winston.error('Couldn\'t find user at login.', err.message);
       reporter.handleError(err);
 
       return Promise.resolve(res.status(400).json(message));

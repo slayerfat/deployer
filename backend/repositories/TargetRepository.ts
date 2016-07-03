@@ -5,9 +5,8 @@ import { Gettable } from './interfaces/Gettable';
 import { Settable } from './interfaces/Settable';
 import { Sluggable } from './interfaces/Sluggable';
 import { UserRepository } from './UserRepository';
-import { reporter } from '../services/reporter/singleton';
+import { AbstractRepository } from './AbstractRepository';
 
-// TODO check if extends bug fails again
 export class TargetRepository implements Gettable, Settable, Sluggable {
   public getAll(): Promise<TargetModelInterface[]> {
     return new Promise((resolve, reject) => {
@@ -18,6 +17,8 @@ export class TargetRepository implements Gettable, Settable, Sluggable {
         .then((targets: TargetModelInterface[]) => {
           return resolve(targets);
         }, err => {
+          AbstractRepository.handleError('couldn\'t get targets index successfully.', err);
+
           return reject(err);
         });
     });
@@ -40,18 +41,20 @@ export class TargetRepository implements Gettable, Settable, Sluggable {
         target.save().then(() => {
           resolve(target);
         }, err => {
-          reporter.handleError(err);
+          AbstractRepository.handleError('couldn\'t store target successfully.', err);
 
           reject(err);
         });
       }, err => {
+        AbstractRepository.handleError('couldn\'t store target successfully, User repository error.', err);
+
         reject(err);
       });
     });
   }
 
   public update(id: mongoose.Types.ObjectId): Promise<TargetModelInterface> {
-    // TODO
+    // TODO implement update target
     return undefined;
   }
 
@@ -64,8 +67,7 @@ export class TargetRepository implements Gettable, Settable, Sluggable {
 
         reject({message: 'no target found'});
       }, err => {
-        // TODO: use morgan or similar to make log files
-        reporter.handleError(err);
+        AbstractRepository.handleError('couldn\'t find target successfully.', err);
 
         reject(err);
       });

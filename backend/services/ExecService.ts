@@ -1,6 +1,7 @@
 import { NodeCommands } from '../models/targets/NodeCommands';
 import { AppService } from './AppService';
 import { reporter } from './reporter/singleton';
+import { winston } from '../services/winston';
 
 const execFile = require('child_process').execFile;
 
@@ -46,7 +47,7 @@ export class ExecService {
     return new Promise((resolve) => {
       this.exec(command, args, {cwd: cwd}, (error, stdOut, stdErr) => {
         if (error) {
-          // TODO: morgan
+          winston.error('errors found trying to execute command: ', command, args.toString(), cwd, error.message);
           reporter.handleError(error);
 
           return resolve({success: false, error});

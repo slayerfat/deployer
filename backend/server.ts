@@ -63,5 +63,5 @@ app.use('/api', router);
 app.use(rollbar.errorHandler(config.rollbar.serverSecret, {environment: config.rollbar.environment}));
 
 app.listen(port, function () {
-  winston.log('info', `The backend is serving on port ${port}.`);
+  winston.info(`The backend is serving on port ${port}.`);
 });

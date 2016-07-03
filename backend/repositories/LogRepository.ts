@@ -3,7 +3,7 @@ import { LogModelInterface } from '../models/logs/LogModelInterface';
 import { Gettable } from './interfaces/Gettable';
 import { Settable } from './interfaces/Settable';
 import Log from '../models/logs/Log';
-import { reporter } from '../services/reporter/singleton';
+import { AbstractRepository } from './AbstractRepository';
 
 export class LogRepository implements Gettable, Settable {
   public getAll(): Promise<LogModelInterface[]> {
@@ -15,7 +15,9 @@ export class LogRepository implements Gettable, Settable {
         .then((targets: LogModelInterface[]) => {
           return resolve(targets);
         }, err => {
-          return reject(err);
+          AbstractRepository.handleError('couldn\'t get logs index successfully.', err);
+
+          reject(err);
         });
     });
   }
@@ -27,9 +29,11 @@ export class LogRepository implements Gettable, Settable {
           return resolve(target);
         }
 
-        return reject({message: 'Log not found.'});
+        reject({message: 'Log not found.'});
       }, err => {
-        return reject(err);
+        AbstractRepository.handleError('couldn\'t get log successfully.', err);
+
+        reject(err);
       });
     });
   }
@@ -39,8 +43,7 @@ export class LogRepository implements Gettable, Settable {
       Log.create(data).then(log => {
         resolve(log);
       }, err => {
-        // TODO: morgan file log
-        reporter.handleError(err);
+        AbstractRepository.handleError('couldn\'t store log successfully.', err);
 
         reject(err);
       });

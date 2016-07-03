@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 import { Gettable } from './interfaces/Gettable';
 import User from '../models/users/User';
 import { UserModelInterface } from '../models/users/UserModelInterface';
-import { reporter } from '../services/reporter/singleton';
+import { AbstractRepository } from './AbstractRepository';
 
 export class UserRepository implements Gettable {
 
@@ -17,7 +17,7 @@ export class UserRepository implements Gettable {
       User.findOne().exec().then(user => {
         resolve(user);
       }, err => {
-        reporter.handleError(err);
+        AbstractRepository.handleError('couldn\'t get current user successfully.', err);
 
         reject(err);
       });

@@ -2,10 +2,11 @@ import { TargetRepository } from '../../repositories/TargetRepository';
 import { JsonErrorResponse } from '../interfaces/JsonErrorResponse';
 import { LogRepository } from '../../repositories/LogRepository';
 import { LogInterface } from '../../models/logs/LogInterface';
+import { reporter } from '../../services/reporter/singleton';
 import { ExecService } from '../../services/ExecService';
 import { WebHooks } from '../middlewares/WebHooks';
+import { winston } from '../../services/winston';
 import { Request, Response } from 'express';
-import { reporter } from '../../services/reporter/singleton';
 
 // TODO: jwt
 // import * as jwt from 'jsonwebtoken';
@@ -72,6 +73,8 @@ export default function targetRoute(app, router) {
             return;
           }
 
+          winston.debug(`trying to iterate exec at target, iteration ${i}`);
+
           // we have to execute the commands
           exec.run(target.commands).then(results => {
             // we have to check if any of the commands failed,
@@ -95,9 +98,10 @@ export default function targetRoute(app, router) {
 
         return iterate();
       }).catch(error => {
-        // TODO: morgan
         // we need to inform the reporter service because this is a critical business case
-        reporter.log(`Target failed to pull: ${error.message}`, 'warning', req);
+        const errMsg = `Target failed to pull: ${error.message}`;
+        reporter.log(errMsg, 'warning', req);
+        winston.warn(errMsg, JSON.stringify(data));
 
         // sets the response fail status flag
         data.status = false;
