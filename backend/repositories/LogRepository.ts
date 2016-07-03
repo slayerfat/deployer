@@ -3,6 +3,7 @@ import { LogModelInterface } from '../models/logs/LogModelInterface';
 import { Gettable } from './interfaces/Gettable';
 import { Settable } from './interfaces/Settable';
 import Log from '../models/logs/Log';
+import { reporter } from '../services/reporter/singleton';
 
 export class LogRepository implements Gettable, Settable {
   public getAll(): Promise<LogModelInterface[]> {
@@ -14,8 +15,6 @@ export class LogRepository implements Gettable, Settable {
         .then((targets: LogModelInterface[]) => {
           return resolve(targets);
         }, err => {
-          console.log(err);
-
           return reject(err);
         });
     });
@@ -28,10 +27,8 @@ export class LogRepository implements Gettable, Settable {
           return resolve(target);
         }
 
-        return reject({message: 'User not found.'});
+        return reject({message: 'Log not found.'});
       }, err => {
-        console.log(err);
-
         return reject(err);
       });
     });
@@ -43,7 +40,7 @@ export class LogRepository implements Gettable, Settable {
         resolve(log);
       }, err => {
         // TODO: morgan file log
-        console.log(err);
+        reporter.handleError(err);
 
         reject(err);
       });

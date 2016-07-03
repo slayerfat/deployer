@@ -4,6 +4,7 @@ import * as jwt from 'jsonwebtoken';
 import { Comprobable } from '../../../src/app/shared/interfaces';
 import { UserModelInterface } from '../../models/users/UserModelInterface';
 import { JsonErrorResponse } from '../interfaces/JsonErrorResponse';
+import { reporter } from '../../services/reporter/singleton';
 
 export default function loginRoute(app, router) {
   router.post('/login', function (req: Request, res: Response) {
@@ -26,7 +27,8 @@ export default function loginRoute(app, router) {
       // returns the token with a success message
       return Promise.resolve(res.json(response));
     }, err => {
-      console.log(err);
+      // TODO: morgan
+      reporter.handleError(err);
 
       return Promise.resolve(res.status(400).json(message));
     });

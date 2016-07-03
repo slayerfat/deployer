@@ -5,6 +5,7 @@ import { Gettable } from './interfaces/Gettable';
 import { Settable } from './interfaces/Settable';
 import { Sluggable } from './interfaces/Sluggable';
 import { UserRepository } from './UserRepository';
+import { reporter } from '../services/reporter/singleton';
 
 // TODO check if extends bug fails again
 export class TargetRepository implements Gettable, Settable, Sluggable {
@@ -17,8 +18,6 @@ export class TargetRepository implements Gettable, Settable, Sluggable {
         .then((targets: TargetModelInterface[]) => {
           return resolve(targets);
         }, err => {
-          console.log(err);
-
           return reject(err);
         });
     });
@@ -39,14 +38,14 @@ export class TargetRepository implements Gettable, Settable, Sluggable {
         target.user = model._id;
 
         target.save().then(() => {
-          return resolve(target);
+          resolve(target);
         }, err => {
-          console.log('error saving new target.');
+          reporter.handleError(err);
 
-          return reject(err);
+          reject(err);
         });
       }, err => {
-        return reject(err);
+        reject(err);
       });
     });
   }
@@ -63,12 +62,12 @@ export class TargetRepository implements Gettable, Settable, Sluggable {
           return resolve(target);
         }
 
-        return reject({message: 'no target found'});
+        reject({message: 'no target found'});
       }, err => {
         // TODO: use morgan or similar to make log files
-        console.log(err);
+        reporter.handleError(err);
 
-        return reject(err);
+        reject(err);
       });
     });
   }

@@ -5,7 +5,7 @@ import { LogInterface } from '../../models/logs/LogInterface';
 import { ExecService } from '../../services/ExecService';
 import { WebHooks } from '../middlewares/WebHooks';
 import { Request, Response } from 'express';
-declare let rollbar: any;
+import { reporter } from '../../services/reporter/singleton';
 
 // TODO: jwt
 // import * as jwt from 'jsonwebtoken';
@@ -60,6 +60,7 @@ export default function targetRoute(app, router) {
         iteration: 0
       };
 
+      // we need to find the target by slug
       targetRepo.getBySlug(slug).then(target => {
         // if there is a target, we just respond success
         data.target = target._id;
@@ -95,8 +96,13 @@ export default function targetRoute(app, router) {
         return iterate();
       }).catch(error => {
         // TODO: morgan
-        console.error(error.message);
+        // we need to inform the reporter service because this is a critical business case
+        reporter.log(`Target failed to pull: ${error.message}`, 'warning', req);
+
+        // sets the response fail status flag
         data.status = false;
+
+        // this data goes into the log at mongo and the server response.
         let message = {
           message: error.message,
           target: slug
@@ -107,14 +113,11 @@ export default function targetRoute(app, router) {
         // respond with the status already made
         return logRepo.store(data).then(() => {
           res.json({success: false, message: message.message, target: message.target});
-        }, err => {
-          console.log(err);
-          msg = {
+        }, () => {
+          res.status(500).json({
             success: false,
             message: 'Unknown server error, cant save new Log.'
-          };
-
-          res.status(500).json(msg);
+          });
         });
       });
     });

@@ -1,5 +1,6 @@
 import { NodeCommands } from '../models/targets/NodeCommands';
 import { AppService } from './AppService';
+import { reporter } from './reporter/singleton';
 
 const execFile = require('child_process').execFile;
 
@@ -46,13 +47,13 @@ export class ExecService {
       this.exec(command, args, {cwd: cwd}, (error, stdOut, stdErr) => {
         if (error) {
           // TODO: morgan
-          // console.log('errors found: ', command, args, cwd, error.message);
+          reporter.handleError(error);
 
           return resolve({success: false, error});
         }
 
         const end = AppService.timer(start);
-        const time = `${end} ms.`;
+        const time = `${end} ms`;
 
         return resolve({success: true, command, args, cwd, stdOut, stdErr, time});
       });

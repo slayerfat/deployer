@@ -1,4 +1,5 @@
 import { config } from '../config/config';
+import { reporter } from './services/reporter/singleton';
 
 export default (mongoose) => {
   let url: string;
@@ -18,7 +19,8 @@ export default (mongoose) => {
       if (config.env === 'development' && error.message === conRef) {
         return console.log(error);
       }
-      throw error;
+
+      reporter.handleError(error);
     }
   });
 
