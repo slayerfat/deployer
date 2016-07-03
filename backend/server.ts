@@ -56,7 +56,6 @@ app.use('/api', router);
 
 // Use the rollbar error handler to send exceptions to your rollbar account
 app.use(rollbar.errorHandler(config.rollbar.serverSecret, {environment: config.rollbar.environment}));
-console.log(config.rollbar.serverSecret);
 
 app.listen(port, function () {
   console.log(`The backend is serving on port ${port}.`);
