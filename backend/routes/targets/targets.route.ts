@@ -100,8 +100,18 @@ export default function targetRoute(app, router) {
       }).catch(error => {
         // we need to inform the reporter service because this is a critical business case
         const errMsg = `Target failed to pull: ${error.message}`;
-        reporter.log(errMsg, 'warning', req);
-        winston.warn(errMsg, JSON.stringify(data));
+        const errData = {
+          headers: data.headers,
+          protocol: req.protocol,
+          url: req.url,
+          method: req.method,
+          body: req.body,
+          route: req.route,
+          'user_ip': req.ip
+        };
+
+        reporter.log(errMsg, 'warning', errData);
+        winston.warn(errMsg, JSON.stringify(errData));
 
         // sets the response fail status flag
         data.status = false;
