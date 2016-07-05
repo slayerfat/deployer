@@ -9,12 +9,7 @@
 const map: any = {
   'ng2-bootstrap': 'vendor/ng2-bootstrap',
   'ng2-table': 'vendor/ng2-table',
-  'moment': 'vendor/moment/moment.js',
-  'jsonwebtoken': 'vendor/jsonwebtoken',
-  'jws': 'vendor/jws',
-  'ms': 'vendor/ms/index.js',
-  'joi': 'vendor/joi',
-  'xtend': 'vendor/xtend/immutable.js'
+  'moment': 'vendor/moment/moment.js'
 };
 
 /** User packages configuration. */
@@ -26,18 +21,6 @@ const packages: any = {
     defaultExtension: 'js'
   },
   'vendor/ng2-table': {
-    defaultExtension: 'js'
-  },
-  'vendor/jsonwebtoken': {
-    main: 'index',
-    defaultExtension: 'js'
-  },
-  'vendor/jws': {
-    main: 'index',
-    defaultExtension: 'js'
-  },
-  'vendor/joi': {
-    main: 'lib/index',
     defaultExtension: 'js'
   }
 };

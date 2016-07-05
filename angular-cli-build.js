@@ -18,15 +18,7 @@ module.exports = function(defaults) {
       '@angular/**/*.+(js|js.map)',
       'moment/moment.js',
       'ng2-bootstrap/**/*.+(ts|js|js.map)',
-      'ng2-table/**/*.+(ts|js|js.map)',
-      'jsonwebtoken/index.js',
-      'jsonwebtoken/sign.js',
-      'jsonwebtoken/lib/**/*.+(js|js.map)',
-      'jws/index.js',
-      'jws/lib/**/*.+(js|js.map)',
-      'ms/index.js',
-      'joi/lib/**/*.+(js|js.map)',
-      'xtend/immutable.js'
+      'ng2-table/**/*.+(ts|js|js.map)'
     ]
   });
 };
