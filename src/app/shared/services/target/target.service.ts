@@ -5,7 +5,7 @@ import { TargetInterface } from '../../interfaces/models/TargetInterface';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-import { environment } from '../../../environment';
+import { environment as env } from '../../../environment';
 import { BackendHttpService } from '../misc/backend-http.service';
 
 @Injectable()
@@ -15,24 +15,20 @@ export class TargetService extends BackendHttpService implements Gettable<Target
   }
 
   public getAll(): Observable<TargetInterface[]> {
-    return this.http.get(environment.endpoints.targets)
+    return this.http.get(env.endpoints.targets, this.options)
       .map((res) => res.json())
       .catch(this.handleError);
   }
 
   public getOne(id: number): Observable<TargetInterface> {
-    return this.http.post(
-      `${environment.endpoints.targets}/find`,
-      {id: id},
-      {headers: this.headers}
-    ).map((res) => res.json()).catch(this.handleError);
+    return this.http.post(`${env.endpoints.targets}/find`, {id: id}, this.options)
+      .map((res) => res.json())
+      .catch(this.handleError);
   }
 
   public getBySlug(slug: String): Observable<TargetInterface> {
-    return this.http.post(
-      `${environment.endpoints.targets}/find/slug`,
-      {slug: slug},
-      {headers: this.headers}
-    ).map((res) => res.json()).catch(this.handleError);
+    return this.http.post(`${env.endpoints.targets}/find/slug`, {slug: slug}, this.options)
+      .map((res) => res.json())
+      .catch(this.handleError);
   }
 }

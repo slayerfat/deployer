@@ -15,16 +15,14 @@ export class LogService extends BackendHttpService implements Gettable<LogInterf
   }
 
   public getAll(): Observable<LogInterface[]> {
-    return this.http.get(environment.endpoints.logs)
+    return this.http.get(environment.endpoints.logs, this.options)
       .map((res) => res.json())
       .catch(this.handleError);
   }
 
   public getOne(id: number): Observable<LogInterface> {
-    return this.http.post(
-      `${environment.endpoints.logs}/find`,
-      {id: id},
-      {headers: this.headers}
-    ).map((res) => res.json()).catch(this.handleError);
+    return this.http.post(`${environment.endpoints.logs}/find`, {id: id}, this.options)
+      .map((res) => res.json())
+      .catch(this.handleError);
   }
 }
