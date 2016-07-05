@@ -19,7 +19,7 @@ export default function loginRoute(app, router) {
       // creates the jwt toke with a 6 hours duration
       // since jwt typing states sign returns void, we have
       // to assert the return as any (string doesn't work)
-      let token = jwt.sign(user, app.get('jwtSecret'), {
+      let token = jwt.sign({name: user.name}, app.get('jwtSecret'), {
         expiresIn: '6h'
       }) as any;
 
