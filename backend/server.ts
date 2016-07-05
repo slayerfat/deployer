@@ -32,6 +32,9 @@ app.use(cors({origin: config.url}));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+// app secret
+app.set('secret', config.secret);
+
 // jwt secret (stored in app)
 app.set('jwtSecret', config.jwtSecret);
 
