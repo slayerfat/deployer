@@ -34,7 +34,7 @@ System.config({
   baseURL: distPath
 });
 
-System.import('system-config.js').then(function() {
+System.import('system-config.js').then(function () {
   // Load and configure the TestComponentBuilder.
   return Promise.all([
     System.import('@angular/core/testing'),
@@ -46,7 +46,7 @@ System.import('system-config.js').then(function() {
     testing.setBaseTestProviders(testingBrowser.TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS,
       testingBrowser.TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS);
   });
-}).then(function() {
+}).then(function () {
   // Finally, load all spec files.
   // This will run the tests directly.
   return Promise.all(
