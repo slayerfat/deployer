@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class StateService {
 
-  private internal: Array<any>;
+  private internal: Array<any> = [];
 
   // Already return a `clone` of the current `state`
   public get state() {
