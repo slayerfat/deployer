@@ -60,7 +60,7 @@ export class WebHooks {
 
     let log = new Log(this.data);
 
-    return log.save().then(this.handleJsonErrorResponse(res, WebHooks.FORBIDDEN));
+    return log.save().then(this.handleJsonErrorResponse(res, WebHooks.FORBIDDEN, 403));
   }
 
   /**
@@ -112,11 +112,12 @@ export class WebHooks {
    *
    * @param res
    * @param {string} message
+   * @param {number=} code
    * @returns {Response}
    */
-  private handleJsonErrorResponse(res, message: string) {
+  private handleJsonErrorResponse(res, message: string, code = 200) {
     this.errorResponse.message = message;
 
-    return res.json(this.errorResponse);
+    return res.status(code).json(this.errorResponse);
   }
 }
