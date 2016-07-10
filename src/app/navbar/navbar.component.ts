@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import {
   AppStringsService,
@@ -15,14 +15,15 @@ import {
   directives: [ROUTER_DIRECTIVES],
   providers: [AppRoutesService]
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
 
   public homeLink: AppRoute;
   public loginLink: AppRoute;
   public logsLink: AppRoute;
   public targetsLink: AppRoute;
   public logoutLink: AppRoute;
-  public isUserLogged: boolean;
+  public isUserLogged = UserAuthService.isLogged;
+  private loggedSub;
 
   constructor(public appStrings: AppStringsService,
     public appRoutes: AppRoutesService,
@@ -44,9 +45,13 @@ export class NavbarComponent implements OnInit {
   }
 
   public ngOnInit(): any {
-    this.userAuthService.isLoggedInObservable.subscribe(results => {
+    this.loggedSub = this.userAuthService.isLoggedInObservable.subscribe(results => {
       this.isUserLogged = results;
     });
+  }
+
+  public ngOnDestroy(): any {
+    this.loggedSub.unsubscribe();
   }
 
   public setNormalFonts() {

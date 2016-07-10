@@ -22,10 +22,15 @@ export class UserAuthService extends BackendHttpService {
   constructor(http: Http, private state: StateService) {
     super(http);
     this.state.set('isLoggedIn', UserAuthService.isLogged);
+    this.updateLoggedStatus(UserAuthService.isLogged);
   }
 
   public static get isLogged() {
     return !!localStorage.getItem('auth_token');
+  }
+
+  public updateLoggedStatus(status: boolean) {
+    this.loggedInSubject.next(status);
   }
 
   public login(name, password): Observable<Response> {
@@ -35,7 +40,7 @@ export class UserAuthService extends BackendHttpService {
         if (res.success) {
           localStorage.setItem('auth_token', res.token);
           this.state.set('isLoggedIn', true);
-          this.loggedInSubject.next(UserAuthService.isLogged);
+          this.updateLoggedStatus(UserAuthService.isLogged);
         }
 
         return res.success;
@@ -44,7 +49,7 @@ export class UserAuthService extends BackendHttpService {
 
   public logout() {
     localStorage.removeItem('auth_token');
-    this.loggedInSubject.next(UserAuthService.isLogged);
+    this.updateLoggedStatus(UserAuthService.isLogged);
     this.state.set('isLoggedIn', false);
   }
 }
