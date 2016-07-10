@@ -7,8 +7,7 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "outDir": "dist-backend/",
-    "rootDir": ".",
-    "noEmitHelpers": true
+    "rootDir": "."
   },
   "files": [
     "typings/main.d.ts",
@@ -43,6 +42,7 @@
     "backend/routes/frontend.ts",
     "backend/routes/interfaces/JsonErrorResponse.ts",
     "backend/routes/logs/logs.route.ts",
+    "backend/routes/middlewares/Middleware.ts",
     "backend/routes/middlewares/WebHooks.ts",
     "backend/routes/targets/targets.route.ts",
     "backend/server.ts",
