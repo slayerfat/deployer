@@ -1,25 +1,21 @@
+import Log from '../../models/logs/Log';
+import { Middleware } from './Middleware';
 import { Request, Response } from 'express';
 import { LogInterface } from '../../models/logs/LogInterface';
-import Log from '../../models/logs/Log';
-import { JsonErrorResponse } from '../interfaces/JsonErrorResponse';
 
-export class WebHooks {
-  public static OK_BUT_REJECTED = 'Request ok, but Rejected.';
-  public static FORBIDDEN = 'Forbidden.';
-  private errorResponse: JsonErrorResponse = {
-    success: false,
-    message: ''
-  };
-  private request: Request;
+export class WebHooks extends Middleware {
+
+  /**
+   * Data related to the request and the log to be stored.
+   *
+   * @type {{ip: string, headers: {}, status: boolean, iteration: number}}
+   */
   private data: LogInterface = {
     ip: '',
     headers: {},
     status: false,
     iteration: 0
   };
-
-  constructor() {
-  }
 
   /**
    * Handle an incoming request.
@@ -105,19 +101,5 @@ export class WebHooks {
     this.data.results = [{message: 'Rejected: not a push event.'}];
 
     return this.data.status = false;
-  }
-
-  /**
-   * If any of the request fails, then we seed this generic response handler.
-   *
-   * @param res
-   * @param {string} message
-   * @param {number=} code
-   * @returns {Response}
-   */
-  private handleJsonErrorResponse(res, message: string, code = 200) {
-    this.errorResponse.message = message;
-
-    return res.status(code).json(this.errorResponse);
   }
 }
