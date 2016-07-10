@@ -15,7 +15,11 @@ export class UserAuthService extends BackendHttpService {
   constructor(http: Http) {
     super(http);
     this.state = stateService;
-    this.state.set('isLoggedIn', !!localStorage.getItem('auth_token'));
+    this.state.set('isLoggedIn', UserAuthService.isLogged);
+  }
+
+  public static get isLogged() {
+    return !!localStorage.getItem('auth_token');
   }
 
   public login(name, password): Observable<Response> {

@@ -4,11 +4,12 @@ import { DashboardComponent } from './+dashboard';
 import { HomeComponent } from './+home';
 import { LogRoutes } from './+logs';
 import { TargetRoutes } from './+targets';
+import { LoggedInGuardService } from './shared/services/misc/logged-in-guard.service';
 
 export const routes: RouterConfig = [
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
-  {path: 'login', component: LoginComponent},
+  {path: 'login', component: LoginComponent, canActivate: [LoggedInGuardService]},
   {path: 'dashboard', component: DashboardComponent},
   ...LogRoutes,
   ...TargetRoutes
