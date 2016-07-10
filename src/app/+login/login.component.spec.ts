@@ -5,8 +5,9 @@ import {
   expect,
   it,
   inject,
+  ComponentFixture,
+  TestComponentBuilder
 } from '@angular/core/testing';
-import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { LoginComponent } from './login.component';
@@ -20,9 +21,9 @@ describe('Component: Login', () => {
   }));
 
   it('should inject the component', inject([LoginComponent],
-      (component: LoginComponent) => {
-    expect(component).toBeTruthy();
-  }));
+    (component: LoginComponent) => {
+      expect(component).toBeTruthy();
+    }));
 
   it('should create the component', inject([], () => {
     return builder.createAsync(LoginComponentTestController)
