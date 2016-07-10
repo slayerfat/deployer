@@ -1,3 +1,6 @@
+import { Injectable } from '@angular/core';
+
+@Injectable()
 export class StateService {
 
   private internal: Array<any> = [];
@@ -40,7 +43,3 @@ export class StateService {
     return JSON.parse(JSON.stringify(object));
   }
 }
-
-const stateService = new StateService();
-
-export { stateService }

@@ -5,16 +5,13 @@ import { LoginResponse } from '../../interfaces/server/LoginResponse';
 import 'rxjs/add/operator/map';
 import { environment as env } from '../../../environment';
 import { BackendHttpService } from '../misc/backend-http.service';
-import { StateService, stateService } from '../misc/state.service';
+import { StateService } from '../misc/state.service';
 
 @Injectable()
 export class UserAuthService extends BackendHttpService {
 
-  private state: StateService;
-
-  constructor(http: Http) {
+  constructor(http: Http, private state: StateService) {
     super(http);
-    this.state = stateService;
     this.state.set('isLoggedIn', UserAuthService.isLogged);
   }
 
