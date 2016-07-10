@@ -3,8 +3,10 @@ import { Gettable } from './interfaces/Gettable';
 import User from '../models/users/User';
 import { UserModelInterface } from '../models/users/UserModelInterface';
 import { AbstractRepository } from './AbstractRepository';
+import { reporter } from '../services/reporter/singleton';
+import { winston } from '../services/winston';
 
-export class UserRepository implements Gettable {
+export class UserRepository extends AbstractRepository implements Gettable {
 
   /**
    * Gets the current user.
@@ -17,7 +19,8 @@ export class UserRepository implements Gettable {
       User.findOne().exec().then(user => {
         resolve(user);
       }, err => {
-        AbstractRepository.handleError('couldn\'t get current user successfully.', err);
+        winston.error('couldn\'t get current user successfully.', err.message);
+        reporter.handleError(err);
 
         reject(err);
       });

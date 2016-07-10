@@ -7,7 +7,7 @@ import { Sluggable } from './interfaces/Sluggable';
 import { UserRepository } from './UserRepository';
 import { AbstractRepository } from './AbstractRepository';
 
-export class TargetRepository implements Gettable, Settable, Sluggable {
+export class TargetRepository extends AbstractRepository implements Gettable, Settable, Sluggable {
   public getAll(): Promise<TargetModelInterface[]> {
     return new Promise((resolve, reject) => {
       Target
@@ -17,7 +17,7 @@ export class TargetRepository implements Gettable, Settable, Sluggable {
         .then((targets: TargetModelInterface[]) => {
           return resolve(targets);
         }, err => {
-          AbstractRepository.handleError('couldn\'t get targets index successfully.', err);
+          this.handleError('couldn\'t get targets index successfully.', err);
 
           return reject(err);
         });
@@ -41,12 +41,12 @@ export class TargetRepository implements Gettable, Settable, Sluggable {
         target.save().then(() => {
           resolve(target);
         }, err => {
-          AbstractRepository.handleError('couldn\'t store target successfully.', err);
+          this.handleError('couldn\'t store target successfully.', err);
 
           reject(err);
         });
       }, err => {
-        AbstractRepository.handleError('couldn\'t store target successfully, User repository error.', err);
+        this.handleError('couldn\'t store target successfully, User repository error.', err);
 
         reject(err);
       });
@@ -67,7 +67,7 @@ export class TargetRepository implements Gettable, Settable, Sluggable {
 
         reject({message: 'no target found'});
       }, err => {
-        AbstractRepository.handleError('couldn\'t find target successfully.', err);
+        this.handleError('couldn\'t find target successfully.', err);
 
         reject(err);
       });

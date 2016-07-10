@@ -5,7 +5,7 @@ import { Settable } from './interfaces/Settable';
 import Log from '../models/logs/Log';
 import { AbstractRepository } from './AbstractRepository';
 
-export class LogRepository implements Gettable, Settable {
+export class LogRepository extends AbstractRepository implements Gettable, Settable {
   public getAll(): Promise<LogModelInterface[]> {
     return new Promise((resolve, reject) => {
       Log
@@ -15,7 +15,7 @@ export class LogRepository implements Gettable, Settable {
         .then((targets: LogModelInterface[]) => {
           return resolve(targets);
         }, err => {
-          AbstractRepository.handleError('couldn\'t get logs index successfully.', err);
+          this.handleError('couldn\'t get logs index successfully.', err);
 
           reject(err);
         });
@@ -31,7 +31,7 @@ export class LogRepository implements Gettable, Settable {
 
         reject({message: 'Log not found.'});
       }, err => {
-        AbstractRepository.handleError('couldn\'t get log successfully.', err);
+        this.handleError('couldn\'t get log successfully.', err);
 
         reject(err);
       });
@@ -43,7 +43,7 @@ export class LogRepository implements Gettable, Settable {
       Log.create(data).then(log => {
         resolve(log);
       }, err => {
-        AbstractRepository.handleError('couldn\'t store log successfully.', err);
+        this.handleError('couldn\'t store log successfully.', err);
 
         reject(err);
       });
