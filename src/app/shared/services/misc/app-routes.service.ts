@@ -13,6 +13,12 @@ export class AppRoutesService {
       shortDesc: 'Login!'
     },
     {
+      title: 'Logout',
+      name: 'Logout',
+      path: 'logout',
+      shortDesc: 'Logout'
+    },
+    {
       title: 'Logs',
       name: 'Logs',
       path: 'logs',

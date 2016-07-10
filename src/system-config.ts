@@ -49,6 +49,7 @@ const barrels: string[] = [
   'app/footer',
   'app/+home',
   'app/+login',
+  'app/+logout',
   'app/+dashboard',
   'app/+logs',
   'app/+logs/shared',
