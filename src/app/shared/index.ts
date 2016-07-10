@@ -13,4 +13,6 @@ export * from './services/misc/AppRoute';
 export * from './services/misc/app-strings.service';
 export * from './services/misc/backend-http.service';
 export * from './services/misc/state.service';
+export * from './services/misc/auth-guard.service';
+export * from './services/misc/logged-in-guard.service';
 export * from './pipes/human-diff.pipe';
