@@ -4,6 +4,13 @@ import { Request, Response } from 'express';
 export abstract class Middleware {
 
   /**
+   * Sets status message for unknown error.
+   *
+   * @type {string}
+   */
+  public static ERROR = 'Unknown error.';
+
+  /**
    * The forbidden message to be printed back.
    *
    * @type {string}

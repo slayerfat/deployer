@@ -7,9 +7,7 @@ import { ExecService } from '../../services/ExecService';
 import { WebHooks } from '../middlewares/WebHooks';
 import { winston } from '../../services/winston';
 import { Request, Response } from 'express';
-
-// TODO: jwt
-// import * as jwt from 'jsonwebtoken';
+import { Auth } from '../middlewares/Auth';
 
 export default function targetRoute(app, router) {
   // TODO: IOC
@@ -17,7 +15,9 @@ export default function targetRoute(app, router) {
   const logRepo = new LogRepository();
   const exec = new ExecService();
   const webHook = new WebHooks();
+  const auth = new Auth();
   let msg: JsonErrorResponse;
+  router.use(auth.handle.bind(auth));
 
   /**
    * Gets a list of elements.
