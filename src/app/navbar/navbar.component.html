@@ -44,9 +44,14 @@
               <i class="fa fa-low-vision"></i>
             </a>
           </li>
-          <li>
+          <li *ngIf="!isUserLogged">
             <a [routerLink]="[loginLink.path]" [title]="loginLink.shortDesc">
               {{ loginLink.title }}
+            </a>
+          </li>
+          <li *ngIf="isUserLogged">
+            <a [routerLink]="[logoutLink.path]" [title]="logoutLink.shortDesc">
+              {{ logoutLink.title }}
             </a>
           </li>
         </ul>

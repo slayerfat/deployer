@@ -1,6 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
-import { AppStringsService, AppRoutesService, AppRoute } from '../shared';
+import {
+  AppStringsService,
+  AppRoutesService,
+  AppRoute,
+  UserAuthService
+} from '../shared';
 
 @Component({
   moduleId: module.id,
@@ -10,14 +15,18 @@ import { AppStringsService, AppRoutesService, AppRoute } from '../shared';
   directives: [ROUTER_DIRECTIVES],
   providers: [AppRoutesService]
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
 
   public homeLink: AppRoute;
   public loginLink: AppRoute;
   public logsLink: AppRoute;
   public targetsLink: AppRoute;
+  public logoutLink: AppRoute;
+  public isUserLogged: boolean;
 
-  constructor(public appStrings: AppStringsService, public appRoutes: AppRoutesService) {
+  constructor(public appStrings: AppStringsService,
+    public appRoutes: AppRoutesService,
+    private userAuthService: UserAuthService) {
     this.homeLink = this.appRoutes.getRoutes()
       .find(route => route.title === this.appStrings.brand);
 
@@ -29,6 +38,15 @@ export class NavbarComponent {
 
     this.targetsLink = this.appRoutes.getRoutes()
       .find(route => route.name === 'Targets');
+
+    this.logoutLink = this.appRoutes.getRoutes()
+      .find(route => route.name === 'Logout');
+  }
+
+  public ngOnInit(): any {
+    this.userAuthService.isLoggedInObservable.subscribe(results => {
+      this.isUserLogged = results;
+    });
   }
 
   public setNormalFonts() {
