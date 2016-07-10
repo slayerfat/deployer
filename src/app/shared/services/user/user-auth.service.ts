@@ -5,15 +5,16 @@ import { LoginResponse } from '../../interfaces/server/LoginResponse';
 import 'rxjs/add/operator/map';
 import { environment as env } from '../../../environment';
 import { BackendHttpService } from '../misc/backend-http.service';
-import { StateService } from '../misc/state.service';
-
-// TODO check angular-cli 3rd party support
-// import * as jwt from 'jsonwebtoken';
+import { StateService, stateService } from '../misc/state.service';
 
 @Injectable()
 export class UserAuthService extends BackendHttpService {
-  constructor(http: Http, private state: StateService) {
+
+  private state: StateService;
+
+  constructor(http: Http) {
     super(http);
+    this.state = stateService;
     this.state.set('isLoggedIn', !!localStorage.getItem('auth_token'));
   }
 
