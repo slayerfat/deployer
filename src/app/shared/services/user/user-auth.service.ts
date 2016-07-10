@@ -1,14 +1,23 @@
+import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-import { LoginResponse } from '../../interfaces/server/LoginResponse';
-import 'rxjs/add/operator/map';
+import { StateService } from '../misc/state.service';
 import { environment as env } from '../../../environment';
 import { BackendHttpService } from '../misc/backend-http.service';
-import { StateService } from '../misc/state.service';
+import { LoginResponse } from '../../interfaces/server/LoginResponse';
 
 @Injectable()
 export class UserAuthService extends BackendHttpService {
+
+  /**
+   * https://angular.io/docs/ts/latest/cookbook/component-communication.html#!#bidirectional-service
+   *
+   * @type {Subject<boolean>}
+   */
+  public loggedInSubject = new Subject<boolean>();
+  public isLoggedInObservable = this.loggedInSubject.asObservable();
 
   constructor(http: Http, private state: StateService) {
     super(http);
@@ -26,6 +35,7 @@ export class UserAuthService extends BackendHttpService {
         if (res.success) {
           localStorage.setItem('auth_token', res.token);
           this.state.set('isLoggedIn', true);
+          this.loggedInSubject.next(UserAuthService.isLogged);
         }
 
         return res.success;
@@ -34,6 +44,7 @@ export class UserAuthService extends BackendHttpService {
 
   public logout() {
     localStorage.removeItem('auth_token');
+    this.loggedInSubject.next(UserAuthService.isLogged);
     this.state.set('isLoggedIn', false);
   }
 }
