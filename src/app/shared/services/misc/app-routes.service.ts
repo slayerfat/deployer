@@ -29,6 +29,12 @@ export class AppRoutesService {
       name: 'Targets',
       path: 'targets',
       shortDesc: 'See the system targets.'
+    },
+    {
+      title: 'Dashboard',
+      name: 'Dashboard',
+      path: 'dashboard',
+      shortDesc: 'See your dashboard!'
     }
   ];
 

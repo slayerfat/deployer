@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public logsLink: AppRoute;
   public targetsLink: AppRoute;
   public logoutLink: AppRoute;
+  public dashboardLink: AppRoute;
   public isUserLogged = UserAuthService.isLogged;
   private loggedSub;
 
@@ -42,6 +43,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     this.logoutLink = this.appRoutes.getRoutes()
       .find(route => route.name === 'Logout');
+
+    this.dashboardLink = this.appRoutes.getRoutes()
+      .find(route => route.name === 'Dashboard');
   }
 
   public ngOnInit(): any {

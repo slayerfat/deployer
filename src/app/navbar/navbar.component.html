@@ -50,6 +50,11 @@
             </a>
           </li>
           <li *ngIf="isUserLogged">
+            <a [routerLink]="[dashboardLink.path]" [title]="dashboardLink.shortDesc">
+              {{ dashboardLink.title }}
+            </a>
+          </li>
+          <li *ngIf="isUserLogged">
             <a [routerLink]="[logoutLink.path]" [title]="logoutLink.shortDesc">
               {{ logoutLink.title }}
             </a>
