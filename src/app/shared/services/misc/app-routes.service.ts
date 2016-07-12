@@ -51,4 +51,8 @@ export class AppRoutesService {
   public getRoutes(): AppRoute[] {
     return this.routes;
   }
+
+  public find(name: string, attr = 'name'): AppRoute {
+    return this.routes.find(route => route[attr] === name);
+  }
 }

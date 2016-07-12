@@ -29,23 +29,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(public appStrings: AppStringsService,
     public appRoutes: AppRoutesService,
     private userAuthService: UserAuthService) {
-    this.homeLink = this.appRoutes.getRoutes()
-      .find(route => route.title === this.appStrings.brand);
-
-    this.loginLink = this.appRoutes.getRoutes()
-      .find(route => route.name === 'Login');
-
-    this.logsLink = this.appRoutes.getRoutes()
-      .find(route => route.name === 'Logs');
-
-    this.targetsLink = this.appRoutes.getRoutes()
-      .find(route => route.name === 'Targets');
-
-    this.logoutLink = this.appRoutes.getRoutes()
-      .find(route => route.name === 'Logout');
-
-    this.dashboardLink = this.appRoutes.getRoutes()
-      .find(route => route.name === 'Dashboard');
+    this.homeLink = this.appRoutes.find(this.appStrings.brand, 'title');
+    this.loginLink = this.appRoutes.find('Login');
+    this.logsLink = this.appRoutes.find('Logs');
+    this.targetsLink = this.appRoutes.find('Targets');
+    this.logoutLink = this.appRoutes.find('Logout');
+    this.dashboardLink = this.appRoutes.find('Dashboard');
   }
 
   public ngOnInit(): any {
