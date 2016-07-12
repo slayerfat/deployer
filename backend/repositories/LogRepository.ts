@@ -2,15 +2,33 @@ import * as mongoose from 'mongoose';
 import { LogModelInterface } from '../models/logs/LogModelInterface';
 import { Gettable } from './interfaces/Gettable';
 import { Settable } from './interfaces/Settable';
+import { FindLatest } from './interfaces/FindLatest';
 import Log from '../models/logs/Log';
 import { AbstractRepository } from './AbstractRepository';
 
-export class LogRepository extends AbstractRepository implements Gettable, Settable {
+export class LogRepository extends AbstractRepository implements Gettable, Settable, FindLatest {
   public getAll(): Promise<LogModelInterface[]> {
     return new Promise((resolve, reject) => {
       Log
         .find({})
         .sort({updatedAt: -1})
+        .exec()
+        .then((targets: LogModelInterface[]) => {
+          return resolve(targets);
+        }, err => {
+          this.handleError('couldn\'t get logs index successfully.', err);
+
+          reject(err);
+        });
+    });
+  }
+
+  public getLatest(amount = 5): Promise<LogModelInterface[]> {
+    return new Promise((resolve, reject) => {
+      Log
+        .find({})
+        .sort({updatedAt: -1})
+        .limit(amount)
         .exec()
         .then((targets: LogModelInterface[]) => {
           return resolve(targets);

@@ -32,6 +32,7 @@
     "backend/models/users/UserInterface.ts",
     "backend/models/users/UserModelInterface.ts",
     "backend/repositories/AbstractRepository.ts",
+    "backend/repositories/interfaces/FindLatest.ts",
     "backend/repositories/interfaces/Gettable.ts",
     "backend/repositories/interfaces/Settable.ts",
     "backend/repositories/interfaces/Sluggable.ts",
