@@ -11,6 +11,7 @@ import logRoute from './routes/logs/logs.route';
 import frontEndRoutes from './routes/frontend';
 import { accessLogStream } from './services/morganFileStream';
 import { winston } from './services/winston';
+import { reporter } from './services/reporter/singleton';
 let rollbar = require('rollbar');
 
 // TODO: IOC
@@ -38,9 +39,6 @@ app.set('secret', config.secret);
 // jwt secret (stored in app)
 app.set('jwtSecret', config.jwtSecret);
 
-// database initiation
-db(mongoose);
-
 if (config.env === 'development') {
   // use morgan to log requests to the console
   // noinspection TypeScriptValidateTypes
@@ -65,6 +63,12 @@ app.use('/api', router);
 // Use the rollbar error handler to send exceptions to your rollbar account
 app.use(rollbar.errorHandler(config.rollbar.serverSecret, {environment: config.rollbar.environment}));
 
-app.listen(port, function () {
-  winston.info(`The backend is serving on port ${port}.`);
+// database initiation
+db(mongoose).then(() => {
+  app.listen(port, function () {
+    winston.info(`The backend is serving on port ${port}.`);
+  });
+}).catch(err => {
+  winston.error('Couldn\'t connect to the database.', err.message);
+  reporter.handleError(err);
 });

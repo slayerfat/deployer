@@ -15,11 +15,12 @@ function seed(gulp) {
     }
 
     // we connect to the database.
-    db(mongoose);
-
-    // execute the seeds and disconnect when its done.
-    userSeed(truncate).then((user: UserModelInterface) => {
+    db(mongoose).then(() => {
+      // execute the seeds and disconnect when its done.
+      return userSeed(truncate);
+    }).then((user: UserModelInterface) => {
       console.log('User done, starting Target seeds.');
+
       return targetSeed(user._id, truncate);
     }).then(() => {
       console.log('Targets completed.');
@@ -28,10 +29,9 @@ function seed(gulp) {
     }).catch(err => {
       console.log(err);
     });
-  });
 
-  console.log('seeds completed.');
-  mongoose.disconnect();
+    console.log('seeds completed.');
+  });
 }
 
 export = seed;
