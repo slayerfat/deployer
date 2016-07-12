@@ -12,12 +12,27 @@ import { UserAuthService, FormErrorComponent, FormElement, AppStringsService } f
 })
 export class LoginComponent {
 
+  /**
+   * The heading of the form.
+   *
+   * @type {string}
+   */
   public heading: string;
   public form: ControlGroup;
   public nameControl: AbstractControl;
   public pwControl: AbstractControl;
   public nameErrorElements: FormElement[] = [];
   public pwErrorElements: FormElement[] = [];
+
+  /**
+   * Sets the error message when form submit fails.
+   *
+   * @type {{success: boolean, message: string}}
+   */
+  private submitError = {
+    success: true,
+    message: ''
+  };
 
   constructor(private userAuthService: UserAuthService,
     private appStrings: AppStringsService,
@@ -46,11 +61,13 @@ export class LoginComponent {
     ];
   }
 
-  public onSubmit(data: any) {
-    this.userAuthService.login(data.name, data.password).subscribe(result => {
-      if (result) {
-        this.router.navigate(['/dashboard']);
+  public onSubmit(data: {name: string, password: string}) {
+    this.userAuthService.login(data.name, data.password).subscribe((result: any) => {
+      if (result && result.success === true) {
+        return this.router.navigate(['/dashboard']);
       }
+
+      this.submitError = result;
     });
   }
 }

@@ -43,7 +43,7 @@ export class UserAuthService extends BackendHttpService {
           this.updateLoggedStatus(UserAuthService.isLogged);
         }
 
-        return res.success;
+        return res;
       }).catch(this.handleError);
   }
 

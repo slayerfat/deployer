@@ -4,6 +4,12 @@
       <div class="panel panel-default">
         <div class="panel-heading">{{ heading }}</div>
         <div class="panel-body">
+          <div *ngIf="!submitError.success"
+               class="alert alert-danger"
+               role="alert">
+            <strong>Oops!</strong>
+            {{ submitError.message }}
+          </div>
           <form class="form-horizontal"
                 role="form"
                 [ngFormModel]="form"
