@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
-import { UserAuthService, AppStringsService } from './shared';
 import { NavbarComponent } from './navbar';
 import { FooterComponent } from './footer';
 
@@ -9,8 +8,7 @@ import { FooterComponent } from './footer';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
-  directives: [ROUTER_DIRECTIVES, NavbarComponent, FooterComponent],
-  providers: [UserAuthService, AppStringsService]
+  directives: [ROUTER_DIRECTIVES, NavbarComponent, FooterComponent]
 })
 export class AppComponent {
 }
