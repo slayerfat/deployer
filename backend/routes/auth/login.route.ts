@@ -1,18 +1,19 @@
-import { Request, Response } from 'express';
-import User from '../../models/users/User';
+import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { Comprobable } from '../../../src/app/shared/interfaces';
-import { UserModelInterface } from '../../models/users/UserModelInterface';
-import { JsonErrorResponse } from '../interfaces/JsonErrorResponse';
-import { reporter } from '../../services/reporter/singleton';
+import User from '../../models/users/User';
+import { Request, Response } from 'express';
 import { winston } from '../../services/winston';
+import { reporter } from '../../services/reporter/singleton';
+import { Comprobable } from '../../../src/app/shared/interfaces';
+import { JsonErrorResponse } from '../interfaces/JsonErrorResponse';
+import { UserModelInterface } from '../../models/users/UserModelInterface';
 
 export default function loginRoute(app, router) {
   router.post('/login', function (req: Request, res: Response) {
     const message: JsonErrorResponse = {success: false, message: 'Authentication failed.'};
 
     User.findOne({name: req.body.name}).exec().then((user: UserModelInterface) => {
-      if (!user || user.password !== req.body.password) {
+      if (!(user && bcrypt.compareSync(req.body.password, user.password))) {
         return Promise.resolve(res.json(message));
       }
 
