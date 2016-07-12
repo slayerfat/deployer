@@ -29,6 +29,7 @@ export class LogRepository extends AbstractRepository implements Gettable, Setta
         .find({})
         .sort({updatedAt: -1})
         .limit(amount)
+        .populate('target')
         .exec()
         .then((targets: LogModelInterface[]) => {
           return resolve(targets);
