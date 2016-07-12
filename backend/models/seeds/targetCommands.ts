@@ -97,23 +97,23 @@ export let targetCommands = {
 
   prepareTarget(userId: mongoose.Types.ObjectId) {
     return new Promise((resolve, reject) => {
+      let targets = [];
       this.targets.forEach((data: targetCommandsTargets) => {
-        let target = new Target({
+        targets.push(new Target({
           user: userId,
           name: data.name,
           commands: data.commands || this.makeCommands(data)
-        });
-
-        target.save().then(() => {
-          console.log(`target ${data.name}, saved successfully.`);
-        }, err => {
-          console.log(err);
-
-          reject(err);
-        });
+        }).save());
       });
 
-      resolve();
+      Promise.all(targets).then(() => {
+        console.log(`targets saved successfully.`);
+        resolve();
+      }, err => {
+        console.log(err);
+
+        reject(err);
+      });
     });
   },
 

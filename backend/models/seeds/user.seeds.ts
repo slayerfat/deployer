@@ -4,8 +4,16 @@ import User from '../users/User';
 import { config } from '../../../config/config';
 
 export default (truncate?: boolean) => {
+  console.log('Starting user seed.');
   if (truncate === true) {
-    User.find({}).remove().exec();
+    console.log('truncating users!');
+    User.find({}).remove().exec((err) => {
+      if (err) {
+        return console.error('error truncating the users!', err);
+      }
+
+      console.log('users truncated.');
+    });
   }
 
   return new Promise((resolve, reject) => {
@@ -18,9 +26,9 @@ export default (truncate?: boolean) => {
     user.save().then(() => {
       console.log('User saved successfully.');
     }, err => {
-      console.log(err);
+      console.error(err);
 
-      return reject();
+      reject(err);
     }).then(() => {
       console.log('updating user control.');
       const options = {$set: {createdBy: user._id, updatedBy: user._id}};
@@ -28,12 +36,12 @@ export default (truncate?: boolean) => {
       user.update(options).exec().then(() => {
         console.log('update complete.');
       }, err => {
-        console.log(err);
+        console.error(err);
 
-        return reject();
+        reject(err);
       });
 
-      return resolve(user);
+      resolve(user);
     });
   });
 };

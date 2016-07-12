@@ -22,15 +22,19 @@ function seed(gulp) {
       console.log('User done, starting Target seeds.');
 
       return targetSeed(user._id, truncate);
-    }).then(() => {
-      console.log('Targets completed.');
     }, err => {
-      console.log('error saving Targets.', err);
-    }).catch(err => {
-      console.log(err);
-    });
+      console.error('error seeding user!', err);
+    }).then(() => {
+      return console.log('Targets completed.');
+    }, err => {
+      console.error('error saving Targets.', err);
+    }).then(() => {
+      console.log('seeds completed.');
 
-    console.log('seeds completed.');
+      return process.exit(0);
+    }).catch(err => {
+      console.error(err);
+    });
   });
 }
 
