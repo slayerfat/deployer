@@ -13,6 +13,10 @@
           <span *ngIf="log.target" class="logs-media-body">
             Target: {{ log.target.name }}
           </span>
+          <span *ngIf="log.results"
+                [class]="log.results[0].status ? 'text-success' : 'text-danger'">
+            {{ log.results[0].message }}
+          </span>
           <span class="pull-right logs-media-body">
             {{ log.updatedAt | humanDiff }}
           </span>
