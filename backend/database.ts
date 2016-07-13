@@ -5,10 +5,14 @@ import { winston } from './services/winston';
 export default (mongoose) => {
   return new Promise((resolve, reject) => {
     let url: string;
+    let options: Object;
 
     if (config.env === 'development') {
       url = config.mongo.development;
+      options = {config: {autoIndex: true}};
     } else {
+      winston.info(`Database autoIndex config set to false.`);
+      options = {config: {autoIndex: false}};
       url = config.mongo.production;
     }
 
@@ -43,7 +47,7 @@ export default (mongoose) => {
     // If the Node process ends, close the Mongoose connection
     process.on('SIGINT', exit).on('SIGTERM', exit);
 
-    mongoose.connect(url, (error) => {
+    mongoose.connect(url, options, (error) => {
       if (error) {
         const conRef = 'connect ECONNREFUSED 127.0.0.1:27017';
 
