@@ -50,7 +50,11 @@ export class ExecService {
           winston.error('errors found trying to execute command: ', command, args.toString(), cwd, error.message);
           reporter.handleError(error);
 
-          return resolve({success: false, error});
+          return resolve({
+            success: false,
+            error,
+            message: `errors found trying to execute command: ${command}`
+          });
         }
 
         const end = AppService.timer(start);

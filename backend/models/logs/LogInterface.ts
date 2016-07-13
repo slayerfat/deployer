@@ -6,5 +6,11 @@ export interface LogInterface {
   headers: Object;
   status: boolean;
   iteration: number;
-  results?: Array<{}>;
+  results?: LogResults[];
+}
+
+export interface LogResults {
+  success?: boolean;
+  error?: {};
+  message?: string;
 }
