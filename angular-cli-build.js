@@ -18,7 +18,8 @@ module.exports = function(defaults) {
       '@angular/**/*.+(js|js.map)',
       'moment/moment.js',
       'ng2-bootstrap/**/*.+(ts|js|js.map)',
-      'ng2-table/**/*.+(ts|js|js.map)'
+      'ng2-table/**/*.+(ts|js|js.map)',
+      'ng2-charts/**/*.+(ts|js|js.map)'
     ]
   });
 };

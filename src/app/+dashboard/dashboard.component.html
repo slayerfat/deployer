@@ -23,13 +23,24 @@
 
   <div class="row">
     <div class="col-xs-12">
-      <h1>Graphs</h1>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-xs-12">
-      <h1>Status</h1>
+      <h3>
+        Latest Results
+        <select (change)="chartSelectChange($event)" title="Select Amount">
+          <option *ngFor="let data of chartAmountSelect"
+                  [value]="data.value"
+                  [selected]="data.selected ? 'selected' : null">
+            {{ data.label }}
+          </option>
+        </select>
+      </h3>
+      <div class="log-chart">
+        <base-chart
+          class="chart"
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="'pie'">
+        </base-chart>
+      </div>
     </div>
   </div>
 </div>

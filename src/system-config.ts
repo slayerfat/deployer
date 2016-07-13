@@ -9,6 +9,7 @@
 const map: any = {
   'ng2-bootstrap': 'vendor/ng2-bootstrap',
   'ng2-table': 'vendor/ng2-table',
+  'ng2-charts': 'vendor/ng2-charts',
   'moment': 'vendor/moment/moment.js'
 };
 
@@ -21,6 +22,9 @@ const packages: any = {
     defaultExtension: 'js'
   },
   'vendor/ng2-table': {
+    defaultExtension: 'js'
+  },
+  'vendor/ng2-charts': {
     defaultExtension: 'js'
   }
 };

@@ -19,6 +19,7 @@
     "dist-backend"
   ],
   "dependencies": {
-    "rollbar": "^1.9.1"
+    "rollbar": "^1.9.1",
+    "Chart.js": "^2.1.6"
   }
 }
