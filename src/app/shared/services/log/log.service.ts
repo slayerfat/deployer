@@ -27,7 +27,7 @@ export class LogService extends BackendHttpService implements Gettable<LogInterf
   }
 
   public getLatest(amount?: number): Observable<LogInterface[]> {
-    return this.http.get(`${environment.endpoints.logs}/latest`, this.options)
+    return this.http.post(`${environment.endpoints.logs}/latest`, {amount}, this.options)
       .map((res) => res.json())
       .catch(this.handleError);
   }

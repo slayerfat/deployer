@@ -28,8 +28,8 @@ export default function targetRoute(app, router) {
     });
   });
 
-  router.get('/logs/latest', (req: Request, res: Response) => {
-    logRepo.getLatest().then(logs => {
+  router.post('/logs/latest', (req: Request, res: Response) => {
+    logRepo.getLatest(req.body.amount).then(logs => {
       return res.json(logs);
     }, err => {
       msg = {message: err.message};
