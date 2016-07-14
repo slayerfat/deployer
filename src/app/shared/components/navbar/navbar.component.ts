@@ -5,7 +5,7 @@ import {
   AppRoutesService,
   AppRoute,
   UserAuthService
-} from '../shared';
+} from '../../../shared';
 
 @Component({
   moduleId: module.id,

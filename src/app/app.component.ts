@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
-import { NavbarComponent } from './navbar';
-import { FooterComponent } from './footer';
+import { NavbarComponent } from './shared/components/navbar';
+import { FooterComponent } from './shared/components/footer';
 
 @Component({
   moduleId: module.id,

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AppStringsService } from '../shared';
+import { AppStringsService } from '../../../shared';
 
 @Component({
   moduleId: module.id,

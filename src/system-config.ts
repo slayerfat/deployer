@@ -49,8 +49,6 @@ const barrels: string[] = [
 
   // App specific barrels.
   'app',
-  'app/navbar',
-  'app/footer',
   'app/+home',
   'app/+login',
   'app/+logout',
@@ -67,6 +65,8 @@ const barrels: string[] = [
   'app/shared',
   'app/shared/components/form-error',
   'app/shared/components/default-table',
+  'app/shared/components/navbar',
+  'app/shared/components/footer',
   /** @cli-barrel */
 ];
 
