@@ -7,6 +7,7 @@ export const environment = {
   jwtSecret: '',
   endpoints: {
     login: '',
+    checkToken: '',
     logs: '',
     targets: ''
   },

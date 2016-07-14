@@ -21,6 +21,7 @@ export default {
   },
   endpoints: {
     login: url + '/api/login',
+    checkToken: url + '/api/checkToken',
     logs: url + '/api/logs',
     targets: url + '/api/targets'
   },

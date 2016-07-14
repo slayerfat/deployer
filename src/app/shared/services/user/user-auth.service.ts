@@ -7,6 +7,7 @@ import { StateService } from '../misc/state.service';
 import { environment as env } from '../../../environment';
 import { BackendHttpService } from '../misc/backend-http.service';
 import { LoginResponse } from '../../interfaces/server/LoginResponse';
+import { Comprobable } from '../../interfaces/server/Comprobable';
 
 @Injectable()
 export class UserAuthService extends BackendHttpService {
@@ -22,7 +23,20 @@ export class UserAuthService extends BackendHttpService {
   constructor(http: Http, private state: StateService) {
     super(http);
     this.state.set('isLoggedIn', UserAuthService.isLogged);
-    this.updateLoggedStatus(UserAuthService.isLogged);
+
+    if (UserAuthService.isLogged) {
+      this.checkToken().subscribe((res: any) => {
+        if (res.success) {
+          return this.updateLoggedStatus(UserAuthService.isLogged);
+        }
+      }, err => {
+        if (err.success !== false) {
+          this.handleError(err);
+        }
+
+        return this.logout();
+      });
+    }
   }
 
   public static get isLogged() {
@@ -33,10 +47,17 @@ export class UserAuthService extends BackendHttpService {
     this.loggedInSubject.next(status);
   }
 
-  public login(name, password): Observable<Response> {
+  /**
+   * Tries to login the user.
+   *
+   * @param {string} name
+   * @param {string} password
+   * @returns {Observable<Response>}
+   */
+  public login(name: string, password: string): Observable<Response> {
     return this.http.post(env.endpoints.login, JSON.stringify({name, password}), this.options)
       .map((res: LoginResponse) => res.json())
-      .map((res: LoginResponse) => {
+      .map((res: Comprobable) => {
         if (res.success) {
           localStorage.setItem('auth_token', res.token);
           this.state.set('isLoggedIn', true);
@@ -47,9 +68,23 @@ export class UserAuthService extends BackendHttpService {
       }).catch(this.handleError);
   }
 
-  public logout() {
+  /**
+   * Logs out the current user.
+   */
+  public logout(): void {
     localStorage.removeItem('auth_token');
     this.updateLoggedStatus(UserAuthService.isLogged);
-    this.state.set('isLoggedIn', false);
+    this.state.set('isLoggedIn', UserAuthService.isLogged);
+  }
+
+  /**
+   * Checks if the current token is valid.
+   *
+   * @returns {Observable<Response>}
+   */
+  private checkToken(): Observable<Response> {
+    return this.http.get(env.endpoints.checkToken, this.options)
+      .map(res => res.json())
+      .catch(this.handleError);
   }
 }

@@ -35,4 +35,8 @@ export default function loginRoute(app, router) {
       return Promise.resolve(res.status(400).json(message));
     });
   });
+
+  router.get('/checkToken', function (req: Request, res: Response) {
+    res.json({success: true});
+  });
 }
